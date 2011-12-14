@@ -1,0 +1,648 @@
+/* CSS Styles */
+body
+{
+	font-family:Arial, Helvetica, sans-serif, serif;
+	padding:0;
+	margin: 0;
+	font-size:0.9em;
+	background-color:#282828;
+	background-position:0px -2px;
+	color:white;
+}
+
+a
+{
+	cursor:pointer;
+	color:white;
+	text-decoration:none;
+}
+
+a:hover
+{
+	color:#AD5CAC;
+}
+
+.header
+{
+	height:200px;
+	text-align:center;
+	padding-top:50px;
+	margin-top:4%;
+}
+
+.header p
+{
+	position:relative;
+	left:50%;
+	top:-20%;
+	font-size:120%;
+	max-width:30%;
+	font-style:italic;
+	color:#666;
+}
+
+.topbar
+{
+	position:absolute;
+	top:0px;
+	left:0px;
+	background-color:#1A1A1A;
+	width:100%;
+	height:30px;
+	border-bottom:1px solid #444;
+}
+
+.topbar ul
+{
+	display:inline;
+	position:absolute;
+	
+	top:0px;
+	padding:0px;
+	margin:0px;
+}
+
+.topbar li
+{
+	display:inline;
+	position:relative;
+	top:6px;
+	left:0px;
+	padding-left:10px;
+	padding-right:10px;
+	height:30px;
+}
+
+.topbar li:hover
+{
+	color:#AD5CAC;
+}
+
+#loginBox
+{
+	display:none;
+	position:absolute;
+	z-index:2;
+	right:0px;
+	top:30px;
+	width:250px;
+	height:160px;
+	background-color:#1A1A1A;
+	border-left:1px solid #444;
+	border-bottom:1px solid #444;
+	border-top:1px dashed #444;
+	padding:10px 20px;
+	
+}
+
+
+#loginBox input
+{
+	font-weight:lighter;
+	height:30px;
+	border:1px solid #444;
+	background-color:#202020;
+	border-radius:3px;
+	margin:5px;
+}
+
+#loginBox input[type="text"], #loginBox input[type="password"]
+{
+	font: 100% Arial, Helvetica, sans-serif;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	padding:0px 5px;
+	margin-left:10px;
+	width:90%;
+	color:#aaa;
+}
+
+
+#loginBox input[type="button"]
+{
+	height:44px;
+	position:relative;
+	top:1px;
+	margin:0px;
+	color:white;
+	margin-left:10px;
+	font-weight:bold;
+	font-size:1.5em;
+	padding-left:15px;
+	padding-right:15px;
+}
+
+#registerBox
+{
+	display:none;
+	position:absolute;
+	z-index:2;
+	right:0px;
+	top:30px;
+	width:250px;
+	height:220px;
+	background-color:#1A1A1A;
+	border-left:1px solid #444;
+	border-bottom:1px solid #444;
+	border-top:1px dashed #444;
+	padding:10px 20px;
+	
+}
+
+
+#registerBox input
+{
+	font-weight:lighter;
+	height:30px;
+	border:1px solid #444;
+	background-color:#202020;
+	border-radius:3px;
+	margin:5px;
+}
+
+#registerBox input[type="text"], #registerBox input[type="password"]
+{
+	font: 100% Arial, Helvetica, sans-serif;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	padding:0px 5px;
+	margin-left:10px;
+	width:90%;
+	color:#aaa;
+}
+
+
+#registerBox input[type="button"]
+{
+	height:44px;
+	position:relative;
+	top:1px;
+	margin:0px;
+	color:white;
+	margin-left:10px;
+	font-weight:bold;
+	font-size:1.5em;
+	padding-left:15px;
+	padding-right:15px;
+}
+
+.rfloat
+{
+	right:0px;
+	float:right;
+}
+
+.search
+{
+	margin:auto;
+	margin-bottom:0px;
+	text-align:center;
+	max-width:60%;
+	background-color:#1A1A1A;
+	padding:0px 20px;
+	border-radius:5px 5px 0px 0px;
+	border:1px solid #333;
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
+
+.search input
+{
+	font-weight:lighter;
+	margin:0px;
+	height:40px;
+	border:1px solid #444;
+	background-color:#202020;
+	border-radius:3px;
+	
+}
+
+.search input::-webkit-input-placeholder  { color:#888; }
+
+
+.search input[type="text"]
+{
+	font: 120% Arial, Helvetica, sans-serif;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+/*
+	font-weight:bold;
+*/
+	padding:0px 7px;
+	margin:0px;
+	margin-top:20px;
+	width:78%;
+	color:#fff;
+}
+.search input:-moz-placeholder { color:#888; }
+
+.search input[type="button"]
+{
+	height:42px;
+	position:relative;
+	margin:20px 0px;
+	color:white;
+	margin-left:10px;
+	font-weight:bold;
+	font-size:1.5em;
+	padding-left:15px;
+	padding-right:15px;
+	padding-top:6px;
+}
+
+/*
+.search input[type="button"]:hover
+{
+	background-color:#381A38;
+}
+*/
+
+.button {
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font: 14px/100% Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	padding: .5em 1em;
+	margin:3px 5px;
+	margin-top:1em;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	-webkit-border-radius: 3px; 
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
+.button:hover {
+	text-decoration: none;
+	font-style:normal;
+}
+.button:active {
+	position: relative;
+	top: 1px;
+}
+
+.button img
+{
+	margin-right: 5px;
+	margin-top:-5px;
+	position:relative;
+	top:3px;
+}
+
+.twilightsparkle {
+	color: #FFFFFF;
+	border: solid 1px #444;
+	background: #303030;
+	background: -webkit-gradient(linear, left top, left bottom, from(#303030), to(#212121));
+	background: -moz-linear-gradient(top,  #303030,  #212121);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#303030', endColorstr='#212121');
+}
+.twilightsparkle:hover {
+	border-color:#693669;
+	background: #572A57;
+	color:white;
+	background: -webkit-gradient(linear, left top, left bottom, from(#572A57), to(#381A38));
+	background: -moz-linear-gradient(top,  #572A57, #381A38);
+	text-decoration:none;
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#572A57', endColorstr='#381A38');
+}
+.twilightsparkle:active {
+	color:white;
+	background: -webkit-gradient(linear, left top, left bottom, from(#381A38), to(#572A57));
+	background: -moz-linear-gradient(top,  #381A38,  #572A57);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#381A38', endColorstr='#572A57');
+}
+
+.pinkiepie {
+	color: #FFFFFF;
+	border: solid 1px #444;
+	background: #303030;
+	background: -webkit-gradient(linear, left top, left bottom, from(#303030), to(#212121));
+	background: -moz-linear-gradient(top,  #303030,  #212121);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#303030', endColorstr='#212121');
+}
+.pinkiepie:hover {
+	border-color:#D03197;
+	background: #572A57;
+	color:white;
+	background: -webkit-gradient(linear, left top, left bottom, from(#BD378E), to(#892265));
+	background: -moz-linear-gradient(top,  #BD378E, #892265);
+	text-decoration:none;
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#BD378E', endColorstr='#892265');
+}
+.pinkiepie:active {
+	color:white;
+	background: -webkit-gradient(linear, left top, left bottom, from(#892265), to(#BD378E));
+	background: -moz-linear-gradient(top, #892265,  #BD378E);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#BD378E', endColorstr='#892265');
+}
+
+.rainbowdash {
+	color: #FFFFFF;
+	border: solid 1px #444;
+	background: #303030;
+	background: -webkit-gradient(linear, left top, left bottom, from(#303030), to(#212121));
+	background: -moz-linear-gradient(top,  #303030,  #212121);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#303030', endColorstr='#212121');
+}
+.rainbowdash:hover {
+	border-color:#40ABE4;
+	background: #572A57;
+	color:white;
+	background: -webkit-gradient(linear, left top, left bottom, from(#2898D4), to(#327BA2));
+	background: -moz-linear-gradient(top, #2898D4, #327BA2);
+	text-decoration:none;
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#2898D4', endColorstr='#327BA2');
+}
+.rainbowdash:active {
+	color:white;
+	background: -webkit-gradient(linear, left top, left bottom, from(#327BA2), to(#2898D4));
+	background: -moz-linear-gradient(top,  #327BA2, #2898D4);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#327BA2', endColorstr='#2898D4');
+}
+
+.fluttershy {
+	color: #FFFFFF;
+	border: solid 1px #444;
+	background: #303030;
+	background: -webkit-gradient(linear, left top, left bottom, from(#303030), to(#212121));
+	background: -moz-linear-gradient(top,  #303030,  #212121);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#303030', endColorstr='#212121');
+}
+.fluttershy:hover {
+	border-color:#F1E54C;
+	background: #572A57;
+	color:white;
+	background: -webkit-gradient(linear, left top, left bottom, from(#FCEE61), to(#D0C33F));
+	background: -moz-linear-gradient(top, #FCEE61, #D0C33F);
+	text-decoration:none;
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#FCEE61', endColorstr='#D0C33F');
+}
+.fluttershy:active {
+	color:white;
+	background: -webkit-gradient(linear, left top, left bottom, from(#DFD02C), to(#FCEE61));
+	background: -moz-linear-gradient(top, #DFD02C, #FCEE61);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#DFD02C', endColorstr='#FCEE61');
+}
+
+.options
+{
+	margin:auto;
+	margin-top:0px;
+/*
+	text-align:center;
+*/
+	max-width:60%;
+	background-color:#1D1D1D;
+	padding:20px;
+	border-radius: 0px 0px 5px 5px;
+	border:1px solid #333;
+	border-top:0px;
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
+
+#shadow
+{
+	position:absolute;
+	z-index:3;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	background-color:#000;
+	opacity:0.7;
+}
+
+.dialog
+{
+	position:absolute;
+	margin:auto;
+	z-index:4;
+	width:40%;
+	height:40%;
+	top:30%;
+	left:30%;
+	border-radius:5px;
+	background-color:#1D1D1D;
+	border:1px solid #333;
+	padding:20px;
+	padding-bottom:0px;
+}
+
+#dialog_error img
+{
+	height:90%;
+	float:left;
+	margin-right:20px;
+}
+
+#dialog_confirm img
+{
+	position:absolute;
+	bottom:5%;
+	left:2%;
+	height:50%;
+}
+
+.dialog h1
+{
+	font-weight:lighter;
+	text-shadow: 0 1px 0px rgba(0,0,0,.3);
+	font-size:2.5em;
+	margin:0px;
+}
+
+#dialog_confirm h1
+{
+	text-align:center;
+}
+
+#dialog_error p
+{
+	text-align:center;
+	margin-top:10%;
+}
+
+#dialog_confirm p
+{
+	margin-top:10%;
+	margin-left:30%;
+}
+
+.dialogMessage
+{
+	font-size:2em;
+	font-weight:lighter;
+	text-shadow: 0 1px 1px rgba(0,0,0,.7);
+	text-align:center;
+}
+
+#dialog_confirm .dialogMessage
+{
+	margin-left:30%;
+}
+
+.error
+{
+	color:#FF4444;
+}
+
+.confirm
+{
+	color:#44FF44;
+}
+
+.closebutton
+{
+	position:absolute;
+	bottom:10px;
+	right:10px;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font: 14px/100% Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	padding: .5em 1em;
+	margin:3px 5px;
+	margin-top:1em;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	-webkit-border-radius: 3px; 
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
+
+.closebutton:hover {
+	text-decoration: none;
+	font-style:normal;
+}
+
+.closebutton:active
+{
+/*
+	position:absolute;
+*/
+	bottom:9px;
+}
+
+.nodisplay
+{
+	display:none;
+}
+
+.upload
+{
+	line-height:2.5em;
+	padding-top:0px;
+}
+
+.upload h1
+{
+	position:relative;
+	top:.7em;
+}
+
+.upload form
+{
+	margin-top:0%;
+}
+
+.upload input
+{
+	font-weight:lighter;
+	font-size:1em;
+	border:1px solid #444;
+	background-color:#202020;
+	border-radius:3px;
+}
+
+.upload label
+{
+	width:100px;
+	margin-right:5px;
+	text-align:right;
+	display:block;
+	float:left;
+}
+
+.upload input[type="text"], .upload input[type="file"]
+{
+	font: 100% Arial, Helvetica, sans-serif;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	padding:0px 7px;
+	margin:0px;
+	color:#fff;
+}
+
+.upload input[type="text"]
+{
+	width:150px;
+}
+
+.uploadnotes
+{
+	margin:0px;
+	margin-top:1em;
+	line-height:1em;
+}
+
+.uploadnotes ul
+{
+	list-style-type:none;
+}
+
+.upload input[type="button"], .upload input[type="submit"]
+{
+	position:relative;
+	margin:0px;
+	color:white;
+	margin-left:10px;
+	padding-left:15px;
+	padding-right:15px;
+	padding-top:5px;
+	height:2em;
+}
+
+#celestiasmessage
+{
+	position:relative;
+	top:-1em;
+	
+	width:30%;
+}
+
+.upload img
+{
+	float:right;
+}
+
+#uploadwait img
+{
+	top:2.5%;
+	height:90%;
+}
+
+#uploadwait h1
+{
+	position:absolute;
+	top:40%;
+	left:5%;
+}
+
+.uploadbuttonbox
+{
+	position:absolute;
+	bottom:10px;
+	right:10px;
+}
+
+.footer
+{
+	position:absolute;
+	bottom:0px;
+	right:0px;
+	padding:15px;
+	font-size:0.8em;
+}
