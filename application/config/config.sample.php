@@ -8,7 +8,7 @@ $config['error_controller'] = 'error'; // Controller used for errors (e.g. 404, 
 define('DB_ENGINE', 'mysql');
 define('DB_HOST', 'localhost');
 define('DB_PORT', 3306);
-define('DB_USER', 'ponywalls');
+define('DB_USER', '');
 define('DB_PW', '');
 define('DB_DBNAME', '');
 

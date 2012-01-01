@@ -1,0 +1,7 @@
+---- Ponywalls Source code ----
+
+This code is the code used on the website http://ponywalls.net. It is placed under GPL, refer to gpl.txt for precisions.
+
+If you want to submit code you updated to see it put online, please send it to admin@ponywalls.net, with joined a diff file of your updated code, or the modified files themselves.
+
+To install it, you need to create a database on your RDBMS and fill it with the tables described in db.sql, and to set the credentials in application/config/config.sample.php, and then rename that file as config.php.
