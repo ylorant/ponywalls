@@ -34,3 +34,32 @@ function toggleUploadWait()
 		$('#uploadwait').fadeIn(200);
 	});
 }
+
+function updateWallSize()
+{
+	$('#view').css('height', window.innerHeight - 120);
+}
+
+function toggleData()
+{
+	if($('#data p').css('display') == 'none')
+	{
+		$('#data').slideToggle(400);
+		setTimeout("$('#data p').fadeToggle(200);$('#data p').css('display', 'inline');", 200);
+	}
+	else
+	{
+		$('#data').slideToggle(400);
+		$('#data p').fadeToggle(200);
+	}
+}
+
+function editImageInfo()
+{
+	var image = $('#infoEditButton img');
+	image.attr('src', image.attr('src').replace('edit.png', 'tick.png'));
+	$('#infoEditButton').text(' Update');
+	$('#infoEditButton').prepend(image);
+	$('#infoEditButton').removeClass('twilightsparkle');
+	$('#infoEditButton').addClass('applefritter');
+}

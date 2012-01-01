@@ -76,8 +76,9 @@ class Walls_model extends Model
 	
 	public function merge($arr1, $arr2)
 	{
-		$ret = array();
-		foreach($arr1 as $val)
+		$ret = $arr1;
+		
+		foreach($arr2 as $val)
 		{
 			if(!in_array($val, $ret))
 				$ret[] = $val;

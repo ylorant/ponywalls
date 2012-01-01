@@ -1,0 +1,155 @@
+
+.button {
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font: 14px/100% Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	padding: .5em 1em;
+	margin:3px 5px;
+	margin-top:1em;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	-webkit-border-radius: 3px; 
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
+.button:hover {
+	text-decoration: none;
+	font-style:normal;
+}
+.button:active {
+	position: relative;
+	top: 1px;
+}
+
+.button img
+{
+	margin-right: 5px;
+	margin-top:-5px;
+	position:relative;
+	top:3px;
+}
+
+.twilightsparkle {
+	color: #FFFFFF;
+	border: solid 1px #444;
+	background: #303030;
+	background: -webkit-gradient(linear, left top, left bottom, from(#303030), to(#212121));
+	background: -moz-linear-gradient(top,  #303030,  #212121);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#303030', endColorstr='#212121');
+}
+.twilightsparkle:hover {
+	border-color:#693669;
+	background: #572A57;
+	color:white;
+	background: -webkit-gradient(linear, left top, left bottom, from(#572A57), to(#381A38));
+	background: -moz-linear-gradient(top,  #572A57, #381A38);
+	text-decoration:none;
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#572A57', endColorstr='#381A38');
+}
+.twilightsparkle:active {
+	color:white;
+	background: -webkit-gradient(linear, left top, left bottom, from(#381A38), to(#572A57));
+	background: -moz-linear-gradient(top,  #381A38,  #572A57);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#381A38', endColorstr='#572A57');
+}
+
+.pinkiepie {
+	color: #FFFFFF;
+	border: solid 1px #444;
+	background: #303030;
+	background: -webkit-gradient(linear, left top, left bottom, from(#303030), to(#212121));
+	background: -moz-linear-gradient(top,  #303030,  #212121);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#303030', endColorstr='#212121');
+}
+.pinkiepie:hover {
+	border-color:#D03197;
+	background: #572A57;
+	color:white;
+	background: -webkit-gradient(linear, left top, left bottom, from(#BD378E), to(#892265));
+	background: -moz-linear-gradient(top,  #BD378E, #892265);
+	text-decoration:none;
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#BD378E', endColorstr='#892265');
+}
+.pinkiepie:active {
+	color:white;
+	background: -webkit-gradient(linear, left top, left bottom, from(#892265), to(#BD378E));
+	background: -moz-linear-gradient(top, #892265,  #BD378E);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#BD378E', endColorstr='#892265');
+}
+
+.rainbowdash {
+	color: #FFFFFF;
+	border: solid 1px #444;
+	background: #303030;
+	background: -webkit-gradient(linear, left top, left bottom, from(#303030), to(#212121));
+	background: -moz-linear-gradient(top,  #303030,  #212121);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#303030', endColorstr='#212121');
+}
+.rainbowdash:hover {
+	border-color:#40ABE4;
+	background: #572A57;
+	color:white;
+	background: -webkit-gradient(linear, left top, left bottom, from(#2898D4), to(#327BA2));
+	background: -moz-linear-gradient(top, #2898D4, #327BA2);
+	text-decoration:none;
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#2898D4', endColorstr='#327BA2');
+}
+.rainbowdash:active {
+	color:white;
+	background: -webkit-gradient(linear, left top, left bottom, from(#327BA2), to(#2898D4));
+	background: -moz-linear-gradient(top,  #327BA2, #2898D4);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#327BA2', endColorstr='#2898D4');
+}
+
+.fluttershy {
+	color: #FFFFFF;
+	border: solid 1px #444;
+	background: #303030;
+	background: -webkit-gradient(linear, left top, left bottom, from(#303030), to(#212121));
+	background: -moz-linear-gradient(top,  #303030,  #212121);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#303030', endColorstr='#212121');
+}
+.fluttershy:hover {
+	border-color:#F1E54C;
+	background: #572A57;
+	color:white;
+	background: -webkit-gradient(linear, left top, left bottom, from(#FCEE61), to(#D0C33F));
+	background: -moz-linear-gradient(top, #FCEE61, #D0C33F);
+	text-decoration:none;
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#FCEE61', endColorstr='#D0C33F');
+}
+.fluttershy:active {
+	color:white;
+	background: -webkit-gradient(linear, left top, left bottom, from(#DFD02C), to(#FCEE61));
+	background: -moz-linear-gradient(top, #DFD02C, #FCEE61);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#DFD02C', endColorstr='#FCEE61');
+}
+
+
+.applefritter {
+	color: #FFFFFF;
+	border: solid 1px #444;
+	background: #303030;
+	background: -webkit-gradient(linear, left top, left bottom, from(#303030), to(#212121));
+	background: -moz-linear-gradient(top,  #303030,  #212121);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#303030', endColorstr='#212121');
+}
+.applefritter:hover {
+	border-color:#2DEE2D;
+	background: #05B71C;
+	background: -webkit-gradient(linear, left top, left bottom, from(#39D54E), to(#05B71C));
+	background: -moz-linear-gradient(top,  #39D54E, #05B71C);
+	text-decoration:none;
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#39D54E', endColorstr='#05B71C');
+}
+.applefritter:active {
+	color: #CAFFCA;
+	background: -webkit-gradient(linear, left top, left bottom, from(#05B71C), to(#39D54E));
+	background: -moz-linear-gradient(top,  #05B71C,  #39D54E);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#05B71C', endColorstr='#39D54E');
+}

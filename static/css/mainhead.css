@@ -5,9 +5,30 @@ body
 	color:white;
 }
 
+a
+{
+	text-decoration:none;
+	border:0px;
+	cursor:pointer;
+}
+
+a
+{
+	cursor:pointer;
+	color:white;
+	text-decoration:none;
+}
+
+a:hover
+{
+	color:#AD5CAC;
+}
+
+
 .header
 {
 	position:fixed;
+	z-index:2;
 	top:0px;
 	left:0px;
 	background-color:#1B1B1B;
@@ -16,12 +37,66 @@ body
 	width:100%;
 }
 
-.header img
+.search
 {
+	margin-top:1.5em;
+	margin-left:30px;
+}
+
+.search input
+{
+	font-weight:lighter;
+	font-size:1em;
+	border:1px solid #444;
+	background-color:#202020;
+	border-radius:3px;
+}
+
+.search input[type="text"], .search input[type="file"]
+{
+	font: 100% Arial, Helvetica, sans-serif;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	padding:0px 7px;
+	margin:0px;
+	margin-left:40px;
+	color:#fff;
+}
+
+.search select
+{
+	font-size:0.8em;
+}
+
+.search input[type="text"]
+{
+	width:300px;
+	height:30px;
+}
+
+.search input[type="button"], .search input[type="submit"], .search select
+{
+	position:relative;
+	margin:0px;
+	color:white;
+	margin-left:10px;
+	padding-left:15px;
+	padding-right:15px;
+	padding-top:7px;
+	height:32px;
+}
+
+.header .logo
+{
+/*
 	position:absolute;
 	top:15%;
 	left:10px;
 	height:80%;
+*/
+	float:left;
+	height:80%;
+	margin-top:10px;
+	margin-left:10px;
 }
 
 .content
@@ -81,13 +156,13 @@ body
 	position:absolute;
 	z-index:2;
 	right:0px;
-	top:30px;
+	top:90px;
 	width:250px;
 	height:160px;
 	background-color:#1A1A1A;
 	border-left:1px solid #444;
 	border-bottom:1px solid #444;
-	border-top:1px dashed #444;
+	
 	padding:10px 20px;
 	
 }
@@ -134,13 +209,12 @@ body
 	position:absolute;
 	z-index:2;
 	right:0px;
-	top:30px;
+	top:90px;
 	width:250px;
 	height:220px;
 	background-color:#1A1A1A;
 	border-left:1px solid #444;
 	border-bottom:1px solid #444;
-	border-top:1px dashed #444;
 	padding:10px 20px;
 	
 }

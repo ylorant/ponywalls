@@ -83,13 +83,16 @@ class Main extends Controller
 	}
 	
 	//Performing a search
-	public function search($data = '')
+	public function search($data = '', $searchtype = 'exclusive')
 	{
 		global $config;
 		
 		if(isset($_POST['search']))
 		{
-			header('Location:search/'.urlencode($_POST['search']));
+			if(isset($_POST['searchtype']))
+				header('Location:search/'.urlencode($_POST['search']).'/'.$_POST['searchtype']);
+			else
+				header('Location:search/'.urlencode($_POST['search']));
 			exit();
 		}
 		
@@ -103,9 +106,20 @@ class Main extends Controller
 		
 		$model = $this->loadModel('Walls_model');
 		$keywords = explode(' ', $data);
-		$results = $model->searchWallpaper($keywords);
+		$results = $model->searchWallpaper($keywords, $searchtype == 'inclusive');
 		
 		$template = $this->loadView('search_view');
+		
+		if($searchtype == 'inclusive')
+			$template->set('inclusive', TRUE);
+		
+		if(isset($_SESSION['login']))
+		{
+			$template->set('logged', TRUE);
+			$template->set('userData', $_SESSION);
+		}
+		
+		$template->set('search', $data);
 		$template->set('results', $results);
 		$template->render();
 	}
@@ -115,7 +129,17 @@ class Main extends Controller
 		$model = $this->loadModel('Walls_model');
 		$wall = $model->getWallpaper($id);
 		
-		header('Location:../static/wall/'.$wall['filename']);
+		//header('Location:../static/wall/'.$wall['filename']);
+		$template = $this->loadView('view_view');
+		
+		if(isset($_SESSION['login']))
+		{
+			$template->set('logged', TRUE);
+			$template->set('userData', $_SESSION);
+		}
+		
+		$template->set('wallpaper', $wall);
+		$template->render();
 	}
 	
 	public function add_ajax($tags)

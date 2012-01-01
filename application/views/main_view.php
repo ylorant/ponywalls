@@ -6,6 +6,7 @@
 		<meta name="generator" content="Geany 0.20" />
 		<script type="text/javascript" src="static/js/jquery.js"></script>
 		<script type="text/javascript" src="static/js/effects.js"></script>
+		<link rel="stylesheet" href="static/css/buttons.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="static/css/index.css" type="text/css" media="screen" />
 		<link rel="shortcut icon" type="image/x-icon" href="static/images/favicon.ico" />
 	</head>
@@ -22,9 +23,9 @@
 					</p>
 				<?php } else if($message == 'confirm') { ?>
 					<img src="static/images/derpy_<?php echo $message; ?>.png" alt="<?php echo $message; ?>" />
-					<h1>There's a message !</h1>
+					<h1>I brought you a letter !</h1>
 					<p>
-						According to Derpy Hooves, the message is :
+						According to myself, the message is :
 					</p>
 				<?php } ?>
 				<div class="dialogMessage <?php echo $message; ?>"><?php echo $errorMsg; ?></div>
@@ -40,8 +41,8 @@
 			</ul>
 			<ul class="rfloat">
 				<?php if(!isset($logged)) { ?>
-					<li><a onmouseover="toggleLoginDialog();" onclick="toggleLoginDialog();">Login</a></li>
-					<li><a onmouseover="toggleRegisterDialog();" onclick="toggleRegisterDialog();">Register</a></li>
+					<li><a onclick="toggleLoginDialog();">Login</a></li>
+					<li><a onclick="toggleRegisterDialog();">Register</a></li>
 				<?php } else { ?>
 					<li>Welcome back, <?php echo $userData['login']; ?> !</li>
 					<li><a href="logout">Logout</a></li>
@@ -108,7 +109,7 @@
 			<div style="clear:both;"></div>
 			</div>
 			<div class="footer">
-			<a href="contact">Contact</a> - <a href="terms">Terms and conditions</a> - <a href="http://blog.ponywalls.net">News</a> - Source code
+			<a href="contact">Contact</a> - <a href="terms">Terms and conditions</a> - <a href="http://blog.ponywalls.net">Blog</a> - Source code
 			</div>
 	</body>
 	
