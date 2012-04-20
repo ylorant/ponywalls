@@ -48,7 +48,7 @@
 				<input type="text" name="search" value="<?php echo $search; ?>" /> <input type="submit" class="button twilightsparkle" value="Search" />
 				<select name="searchtype" class="button pinkiepie">
 					<option value="exclusive">All the terms</option>
-					<option value="inclusive"<?php if($inclusive) echo ' selected="selected"'; ?>>One of the terms</option>
+					<option value="inclusive"<?php if(isset($inclusive) && $inclusive) echo ' selected="selected"'; ?>>One of the terms</option>
 				</select>
 			</form>
 		</div>

@@ -72,12 +72,17 @@
 	top:2px;
 }
 
-#data .tag a
+#data .tag a, #data .tag strong
 {
 	border-radius: 0px 5px 5px 0px;
 	background-color:#1f1f1f;
 	padding:4px 6px;
 	margin:0px;
+}
+
+#data .category
+{
+	margin-right:3px;
 }
 
 #data .button
@@ -100,10 +105,13 @@
 
 #data .separator
 {
-	display:inline;
-	margin:0px;
+	display:none;
+	float:left;
 	padding:0px;
-	border-right:1px solid #1f1f1f;
+	margin:0px;
+	margin-top:10px;
+	border-right:1px solid #222;
+	height:1.8em;
 	font-size:1em;
 	margin-left:0.6em;
 }
@@ -121,4 +129,35 @@
 	margin-left:20px;
 	margin-right:20px;
 	margin-top:10px;
+}
+
+
+#editDataForm input[type="text"]
+{
+	font: 90% Arial, Helvetica, sans-serif;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+/*
+	font-weight:bold;
+*/
+	padding:4px 6px;
+	margin:0px;
+	width:300px;
+	margin-top:10px;
+	margin-left:10px;
+	color:#fff;
+}
+
+#editDataForm input
+{
+	font-weight:lighter;
+	margin:0px;
+	border:1px solid #444;
+	background-color:#202020;
+	border-radius:3px;
+	
+}
+
+#editDataForm
+{
+	display:none;
 }

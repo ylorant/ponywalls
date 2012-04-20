@@ -56,13 +56,20 @@
 				<a class="button rainbowdash" onclick="toggleComments();"><img src="static/images/comments.png" /> Comments</a>
 			</div>
 		</div>
-		<div id="data">
-			<?php foreach($wallpaper['keywords'] as $keyword) { ?>
-				<p class="tag"><img src="static/images/tag.png" /> <a href="search/<?php echo $keyword; ?>"><?php echo $keyword; ?></a></p>
-			<?php } ?>
+		<div id="data"><form method="post" action="edit/<?php echo $wallpaper['id']; ?>">
+			<div id="dataShow">
+				<p class="tag category"><img src="static/images/category.png" /> <strong>Tags</strong></p> <p class="separator"> </p>
+				<?php foreach($wallpaper['keywords'] as $keyword) { ?>
+					<p class="tag"><img src="static/images/tag.png" /> <a href="search/<?php echo $keyword; ?>"><?php echo $keyword; ?></a></p>
+				<?php } ?>
+			</div>
+			<div id="editDataForm">
+				<p class="tag category"><img src="static/images/category.png" /> <strong>Tags</strong></p> <p class="separator"> </p><input type="text" name="tags" value="<?php echo join(' ', $wallpaper['keywords']); ?>" />
+			</div>
 			<div style="clear:both;"></div>
 			<hr />
 			<div class="rfloat button twilightsparkle" onclick="editImageInfo();" id="infoEditButton"><img src="static/images/edit.png" /> Edit</div>
+			</form>
 		</div>
 		<div class="content">
 			<div id="view">

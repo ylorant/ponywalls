@@ -62,4 +62,7 @@ function editImageInfo()
 	$('#infoEditButton').prepend(image);
 	$('#infoEditButton').removeClass('twilightsparkle');
 	$('#infoEditButton').addClass('applefritter');
+	$('#dataShow').fadeOut(400, function() {
+		$('#editDataForm').fadeIn(400);
+	});
 }

@@ -1,4 +1,9 @@
 /* CSS Styles */
+@font-face {
+  font-family: Celestia;
+  src: url('Celestia.ttf');
+}
+
 body
 {
 	font-family:Arial, Helvetica, sans-serif, serif;
@@ -20,6 +25,16 @@ a
 a:hover
 {
 	color:#AD5CAC;
+}
+
+.splashtext
+{
+	font-family:Celestia, sans-serif;
+/*
+	-o-transform: rotate(-14deg);
+	-moz-transform: rotate(-14deg);
+	-webkit-transform: rotate(-14deg);
+*/
 }
 
 .header
