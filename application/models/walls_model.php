@@ -30,6 +30,28 @@ class Walls_model extends Model
 		return $id;
 	}
 	
+	public function updateWallpaper($id, $keywords)
+	{
+		$keywords = explode(' ', strtolower(htmlentities($keywords)));
+		$this->prepare('DELETE FROM wall_keywords WHERE idWall = ?');
+		$this->execute(array($id));
+		
+		$this->prepare('INSERT IGNORE INTO keywords (keyword) VALUES(?)');
+		
+		foreach($keywords as $keyword)
+		{
+			$this->execute(array($keyword));
+			$this->_query->closeCursor();
+		}
+		
+		$this->prepare('INSERT INTO wall_keywords (idWall, idKeyword) VALUES(?, (SELECT id FROM keywords WHERE keyword = ?))');
+		foreach($keywords as $keyword)
+		{
+			$this->execute(array($id, $keyword));
+			$this->_query->closeCursor();
+		}
+	}
+	
 	public function searchWallpaper($keywords, $inclusive = FALSE)
 	{
 		$data = array();

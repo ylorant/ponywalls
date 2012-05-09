@@ -1,3 +1,4 @@
+<?php global $config; ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -6,6 +7,10 @@
 		<meta name="generator" content="Geany 0.20" />
 		<script type="text/javascript" src="static/js/jquery.js"></script>
 		<script type="text/javascript" src="static/js/effects.js"></script>
+		<script>
+			const BASE_URL = "<?php echo $config['base_url']; ?>";
+		</script>
+		<script type="text/javascript" src="static/js/ajax.js"></script>
 		<link rel="stylesheet" href="static/css/buttons.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="static/css/mainhead.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="static/css/view.css" type="text/css" media="screen" />
@@ -24,19 +29,19 @@
 					<li><a onclick="toggleRegisterDialog();">Register</a></li>
 				<?php } else { ?>
 					<li>Welcome back, <?php echo $userData['login']; ?> !</li>
-					<li><a href="logout">Logout</a></li>
+					<li><a href="members/logout">Logout</a></li>
 				<?php } ?>
 			</ul>
 		</div>
 		<div id="loginBox">
-		<form method="post" action="login">
+		<form method="post" action="members/login">
 			Username : <input type="text" name="login" /><br />
 			Password : <input type="password" name="password" /><br />
 			<input type="submit" value="Login" class="button rainbowdash rfloat" />
 		</form>
 		</div>
 		<div id="registerBox">
-		<form method="post" action="register">
+		<form method="post" action="members/register">
 			Username : <input type="text" name="login" /><br />
 			Password : <input type="password" name="password" /><br />
 			Type again : <input type="password" name="passwordcheck" /><br />
@@ -56,7 +61,7 @@
 				<a class="button rainbowdash" onclick="toggleComments();"><img src="static/images/comments.png" /> Comments</a>
 			</div>
 		</div>
-		<div id="data"><form method="post" action="edit/<?php echo $wallpaper['id']; ?>">
+		<div id="data"><form method="post" id="dataEditForm" action="wallpapers/edit/<?php echo $wallpaper['id']; ?>">
 			<div id="dataShow">
 				<p class="tag category"><img src="static/images/category.png" /> <strong>Tags</strong></p> <p class="separator"> </p>
 				<?php foreach($wallpaper['keywords'] as $keyword) { ?>

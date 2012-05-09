@@ -57,7 +57,7 @@ function UploadFile(file, tags)
 	var xhr = new XMLHttpRequest();
 	if (xhr.upload)
 	{
-		xhr.open("POST", "add_ajax/"+tags, true);  
+		xhr.open("POST", "wallpapers/add_ajax/"+tags, true);  
 		xhr.setRequestHeader("X_FILENAME", file.name);
 		  
 		xhr.onreadystatechange = function() {

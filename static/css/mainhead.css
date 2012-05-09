@@ -32,7 +32,7 @@ a:hover
 	top:0px;
 	left:0px;
 	background-color:#1B1B1B;
-	border-bottom:10px solid #121212;
+	border-bottom:1px solid #444;
 	height:80px;
 	width:100%;
 }

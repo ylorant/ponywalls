@@ -45,19 +45,19 @@
 					<li><a onclick="toggleRegisterDialog();">Register</a></li>
 				<?php } else { ?>
 					<li>Welcome back, <?php echo $userData['login']; ?> !</li>
-					<li><a href="logout">Logout</a></li>
+					<li><a href="members/logout">Logout</a></li>
 				<?php } ?>
 			</ul>
 		</div>
 		<div id="loginBox">
-		<form method="post" action="login">
+		<form method="post" action="members/login">
 			Username : <input type="text" name="login" /><br />
 			Password : <input type="password" name="password" /><br />
 			<input type="submit" value="Login" class="button rainbowdash rfloat" />
 		</form>
 		</div>
 		<div id="registerBox">
-		<form method="post" action="register">
+		<form method="post" action="members/register">
 			Username : <input type="text" name="login" /><br />
 			Password : <input type="password" name="password" /><br />
 			Type again : <input type="password" name="passwordcheck" /><br />
@@ -76,7 +76,7 @@
 			</form>
 		</div>
 		<div id="imguploaddialog" class="dialog upload nodisplay">
-			<form method="post" id="uploadform" action="add" enctype="multipart/form-data">
+			<form method="post" id="uploadform" action="wallpapers/add" enctype="multipart/form-data">
 				<h1>Upload a wallpaper</h1>
 				<img src="static/images/celestia_message.png" id="celestiasmessage" alt="message" />
 				<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo MAX_FILE_SIZE; ?>" />
