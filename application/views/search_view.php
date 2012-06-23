@@ -51,6 +51,17 @@
 					<option value="inclusive"<?php if(isset($inclusive) && $inclusive) echo ' selected="selected"'; ?>>One of the terms</option>
 				</select>
 			</form>
+			<div class="rfloat topbutton">
+				<a class="button pinkiepie" onclick="toggleData();"><img src="static/images/info.png" /> Related</a>
+			</div>
+			<div class="contextzone">
+				<div id="dataShow">
+				<p class="tag category"><img src="static/images/category.png" /> <strong>Tags</strong></p> <p class="separator"> </p>
+				<?php foreach($wrelated as $keyword) { ?>
+					<p class="tag"><img src="static/images/tag.png" /> <a href="search/<?php echo $keyword; ?>"><?php echo $keyword; ?></a></p>
+				<?php } ?>
+			</div>
+			</div>
 		</div>
 		<div class="content">
 			<?php if(count($results) > 0) { ?>
@@ -73,7 +84,7 @@
 				</div>
 			<?php } else { ?>
 				<div class="notfound" id="view">
-					<img src="static/images/notfound3.png" />
+					<img src="static/images/notfound2.png" />
 					<h1>No wallpapers found. It makes Derpy sad.</h1>
 				</div>
 			<?php } ?>

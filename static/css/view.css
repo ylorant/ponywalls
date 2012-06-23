@@ -2,8 +2,8 @@
 {
 	position:absolute;
 	top:0px;
-	left:10%;
-	width:80%;
+	right:2%;
+	width:75%;
 /*
 	background-color:#eee;
 */
@@ -19,120 +19,10 @@
 	max-height:100%;
 }
 
-.comments
-{
-	position:relative;
-	top:-7px;
-}
-
 .inline
 {
 	display:inline;
 }
-
-#data
-{
-	position:absolute;
-	top:80px;
-	z-index:3;
-	left:0px;
-/*
-	padding-top:1em;
-*/
-	padding-bottom:.6em;
-	width:100%;
-	font-size:0.8em;
-	background-color:#121212;
-	border-bottom:1px solid #444;
-	border-top:1px solid #444;
-	display:none;
-	line-height:1.8em;
-}
-
-#data p
-{
-	float:left;
-	margin-right:5px;
-	margin-left:0px;
-	padding:0px 6px;
-	padding-right:0px;
-	display:none;
-}
-
-#data .tag
-{
-	border-radius:5px;
-	background-color:#282828;
-	margin:10px;
-	margin-right:0px;
-	margin-bottom:0px;
-}
-
-#data .tag img
-{
-	position:relative;
-	top:2px;
-}
-
-#data .tag a, #data .tag strong
-{
-	border-radius: 0px 5px 5px 0px;
-	background-color:#1f1f1f;
-	padding:4px 6px;
-	margin:0px;
-}
-
-#data .category
-{
-	margin-right:3px;
-}
-
-#data .button
-{
-	font-weight:normal;
-	font-size:0.9em;
-	border-radius:5px;
-	padding-top:5px;
-	padding-bottom:3px;
-	margin:0px;
-	margin-left:5px;
-	margin-right:8px;
-}
-
-#data .button img
-{
-	position:relative;
-	top:1px;
-}
-
-#data .separator
-{
-	display:none;
-	float:left;
-	padding:0px;
-	margin:0px;
-	margin-top:10px;
-	border-right:1px solid #222;
-	height:1.8em;
-	font-size:1em;
-	margin-left:0.6em;
-}
-
-#data p strong
-{
-	margin-left:1px;
-	margin-right:5px;
-}
-
-#data hr
-{
-	border:0px;
-	border-bottom:1px solid #1f1f1f;
-	margin-left:20px;
-	margin-right:20px;
-	margin-top:10px;
-}
-
 
 #editDataForm input[type="text"]
 {
@@ -162,4 +52,51 @@
 #editDataForm
 {
 	display:none;
+}
+
+.score
+{
+	float:left;
+	margin-left:5px;
+	cursor:default;
+}
+
+.score img
+{
+	position:relative;
+	top:3px;
+	margin-left:5px;
+	margin-right:5px;
+}
+
+.contextzone
+{
+	width:20%;
+	bottom:0px;
+	border-bottom:0px;
+	border-right:1px solid #444;
+	display:block;
+	padding-right:10px;
+}
+
+.contextzone input
+{
+	max-width: 85%;
+}
+
+.contextzone p
+{
+	display:block;
+}
+
+.bottompanel
+{
+	position:absolute;
+	width:100%;
+	bottom:5px;
+}
+
+.contextzone hr
+{
+	margin:5px 0px;
 }

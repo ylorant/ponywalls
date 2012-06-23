@@ -46,9 +46,12 @@
 
 .thumbnail-list
 {
-	margin:15px;
+	margin:auto;
+	margin-top:15px;
+	margin-bottom:15px;
 	text-align:center;
 	position:relative;
+	width:90%;
 }
 
 .notfound

@@ -102,9 +102,9 @@
 				<a onclick="showUploadDialog();" class="button fluttershy">Submit a picture</a>
 			</div>
 			<div style="float:left; width:60%;">
-				<span class="button pinkiepie">Random</span>
+				<a href="random" class="button pinkiepie">Random</a>
 				<span class="button rainbowdash">Coolest</span>
-				<span class="button twilightsparkle">Latest</span>
+				<a href="latest" class="button twilightsparkle">Latest</a>
 			</div>
 			<div style="clear:both;"></div>
 			</div>

@@ -35,6 +35,7 @@ a:hover
 	border-bottom:1px solid #444;
 	height:80px;
 	width:100%;
+	box-shadow:0px 1px #222222;
 }
 
 .search
@@ -259,4 +260,115 @@ a:hover
 {
 	right:0px;
 	float:right;
+}
+
+.topbutton
+{
+	position:relative;
+	top:-7px;
+}
+
+
+.contextzone
+{
+	position:absolute;
+	top:80px;
+	z-index:3;
+	left:0px;
+/*
+	padding-top:1em;
+*/
+	padding-bottom:.6em;
+	width:100%;
+	font-size:0.8em;
+	background-color:#121212;
+	border-bottom:1px solid #444;
+	border-top:1px solid #444;
+	display:none;
+	line-height:1.8em;
+}
+
+.contextzone p
+{
+	float:left;
+	margin-right:5px;
+	margin-left:0px;
+	padding:0px 6px;
+	padding-right:0px;
+	display:none;
+}
+
+
+.contextzone .tag
+{
+	border-radius:5px;
+	background-color:#282828;
+	margin:10px;
+	margin-right:0px;
+	margin-bottom:0px;
+}
+
+.contextzone .tag img
+{
+	position:relative;
+	top:2px;
+}
+
+.contextzone .tag a, .contextzone .tag strong
+{
+	border-radius: 0px 5px 5px 0px;
+	background-color:#1f1f1f;
+	padding:4px 6px;
+	margin:0px;
+}
+
+.contextzone .category
+{
+	margin-right:3px;
+}
+
+.contextzone .button
+{
+	font-weight:normal;
+	font-size:0.9em;
+	border-radius:5px;
+	padding-top:5px;
+	padding-bottom:3px;
+	margin:0px;
+	margin-left:5px;
+	margin-right:8px;
+}
+
+.contextzone .button img
+{
+	position:relative;
+	top:1px;
+}
+
+.contextzone .separator
+{
+	display:none;
+	float:left;
+	padding:0px;
+	margin:0px;
+	margin-top:10px;
+	border-right:1px solid #222;
+	height:1.8em;
+	font-size:1em;
+	margin-left:0.6em;
+}
+
+.contextzone p strong
+{
+	margin-left:1px;
+	margin-right:5px;
+}
+
+.contextzone hr
+{
+	border:0px;
+	border-bottom:1px solid #1f1f1f;
+	margin-left:20px;
+	margin-right:20px;
+	margin-top:10px;
 }

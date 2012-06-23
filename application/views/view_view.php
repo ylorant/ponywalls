@@ -10,7 +10,6 @@
 		<script>
 			const BASE_URL = "<?php echo $config['base_url']; ?>";
 		</script>
-		<script type="text/javascript" src="static/js/ajax.js"></script>
 		<link rel="stylesheet" href="static/css/buttons.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="static/css/mainhead.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="static/css/view.css" type="text/css" media="screen" />
@@ -56,24 +55,28 @@
 					<option value="inclusive">One of the terms</option>
 				</select>
 			</form>
-			<div class="rfloat comments">
-				<a class="button fluttershy" onclick="toggleData();"><img src="static/images/info.png" /> Info</a>
+			<div class="rfloat topbutton">
+				<a class="button fluttershy" onclick="toggleImageData();"><img src="static/images/info.png" /> Toggle info</a>
 				<a class="button rainbowdash" onclick="toggleComments();"><img src="static/images/comments.png" /> Comments</a>
 			</div>
 		</div>
-		<div id="data"><form method="post" id="dataEditForm" action="wallpapers/edit/<?php echo $wallpaper['id']; ?>">
+		<div class="contextzone"><form method="post" id="dataEditForm" action="wallpapers/edit/<?php echo $wallpaper['id']; ?>">
 			<div id="dataShow">
 				<p class="tag category"><img src="static/images/category.png" /> <strong>Tags</strong></p> <p class="separator"> </p>
 				<?php foreach($wallpaper['keywords'] as $keyword) { ?>
 					<p class="tag"><img src="static/images/tag.png" /> <a href="search/<?php echo $keyword; ?>"><?php echo $keyword; ?></a></p>
 				<?php } ?>
+				
 			</div>
 			<div id="editDataForm">
 				<p class="tag category"><img src="static/images/category.png" /> <strong>Tags</strong></p> <p class="separator"> </p><input type="text" name="tags" value="<?php echo join(' ', $wallpaper['keywords']); ?>" />
 			</div>
 			<div style="clear:both;"></div>
-			<hr />
-			<div class="rfloat button twilightsparkle" onclick="editImageInfo();" id="infoEditButton"><img src="static/images/edit.png" /> Edit</div>
+			<div class="bottompanel">
+				<hr />
+				<div class="score"><img id="plusbutton" src="static/images/plus.png" /> 105 <img id="minusbutton" src="static/images/minus.png" /></div>
+				<div class="rfloat button twilightsparkle" onclick="editImageInfo();" id="infoEditButton"><img src="static/images/edit.png" /> Edit</div>
+			</div>
 			</form>
 		</div>
 		<div class="content">

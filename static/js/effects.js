@@ -42,16 +42,25 @@ function updateWallSize()
 
 function toggleData()
 {
-	if($('#data p').css('display') == 'none')
+	if($('.contextzone p').css('display') == 'none')
 	{
-		$('#data').slideToggle(400);
-		setTimeout("$('#data p').fadeToggle(200);$('#data p').css('display', 'inline');", 200);
+		$('.contextzone').slideToggle(400);
+		setTimeout("$('.contextzone p').fadeToggle(200);$('.contextzone p').css('display', 'inline');", 200);
 	}
 	else
 	{
-		$('#data').slideToggle(400);
-		$('#data p').fadeToggle(200);
+		$('.contextzone').slideToggle(400);
+		$('.contextzone p').fadeToggle(200);
 	}
+}
+
+function toggleImageData()
+{
+	$('.contextzone').fadeToggle(400);
+	if($('.contextzone').css('opacity') == '0')
+		$('#view').animate( {width: '75%',right: '2%'}, 400);
+	else
+		$('#view').animate({width: '80%',right: '10%'}, 400);
 }
 
 function editImageInfo()

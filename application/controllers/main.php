@@ -47,9 +47,21 @@ class Main extends Controller
 			exit();
 		}
 		
+		if($data == 'order:latest')
+		{
+			header('Location: '.BASE_URL.'latest');
+			exit();
+		}
+		else if($data == 'order:random')
+		{
+			header('Location: '.BASE_URL.'random');
+			exit();
+		}
+		
 		$model = $this->loadModel('Walls_model');
 		$keywords = explode(' ', $data);
 		$results = $model->searchWallpaper($keywords, $searchtype == 'inclusive');
+		//~ $related = $model->relatedKeywords($keywords);
 		
 		$template = $this->loadView('search_view');
 		
@@ -63,6 +75,40 @@ class Main extends Controller
 		}
 		
 		$template->set('search', $data);
+		$template->set('results', $results);
+		$template->render();
+	}
+	
+	public function random()
+	{
+		$model = $this->loadModel('Walls_model');
+		$results = $model->randomWallpapers();
+		
+		$template = $this->loadView('search_view');
+		if(isset($_SESSION['login']))
+		{
+			$template->set('logged', TRUE);
+			$template->set('userData', $_SESSION);
+		}
+		
+		$template->set('search', 'order:random');
+		$template->set('results', $results);
+		$template->render();
+	}
+	
+	public function latest()
+	{
+		$model = $this->loadModel('Walls_model');
+		$results = $model->lastWallpapers();
+		
+		$template = $this->loadView('search_view');
+		if(isset($_SESSION['login']))
+		{
+			$template->set('logged', TRUE);
+			$template->set('userData', $_SESSION);
+		}
+		
+		$template->set('search', 'order:latest');
 		$template->set('results', $results);
 		$template->render();
 	}

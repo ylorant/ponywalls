@@ -77,6 +77,20 @@ class Walls_model extends Model
 		return $data;
 	}
 	
+	public function randomWallpapers()
+	{
+		$this->prepare('SELECT walls.id, walls.size, walls.filename FROM walls ORDER BY RAND() LIMIT 30');
+		$this->execute();
+		return $this->fetchAll();
+	}
+	
+	public function lastWallpapers()
+	{
+		$this->prepare('SELECT walls.id, walls.size, walls.filename FROM walls ORDER BY id DESC LIMIT 30');
+		$this->execute();
+		return $this->fetchAll();
+	}
+	
 	public function getWallpaper($id)
 	{
 		$this->prepare('SELECT walls.id, walls.size, walls.filename, walls.rating, walls.poster, walls.orig_filename, k.keyword as keywords FROM `walls` 

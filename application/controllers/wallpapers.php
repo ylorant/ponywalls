@@ -129,6 +129,7 @@ class Wallpapers extends Controller
 		return TRUE;
 	}
 	
+	//Updating wallpaper info.
 	public function edit($id)
 	{
 		if(!isset($_POST['tags']))
