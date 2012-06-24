@@ -39,6 +39,11 @@
 	color:#fff;
 }
 
+#editDataForm select
+{
+	margin-top:10px;
+}
+
 #editDataForm input
 {
 	font-weight:lighter;
@@ -77,6 +82,7 @@
 	border-right:1px solid #444;
 	display:block;
 	padding-right:10px;
+	box-shadow:1px 1px #222222;
 }
 
 .contextzone input
@@ -99,4 +105,39 @@
 .contextzone hr
 {
 	margin:5px 0px;
+}
+
+.infobox
+{
+	clear:both;
+	border-top:1px solid #1F1F1F;
+	padding:5px;
+	position:relative;
+	top:10px;
+}
+
+.infobox .category
+{
+	display:block;
+	clear:both;
+}
+
+.infobox .tag strong
+{
+	margin-left:5px;
+}
+
+.Explicit
+{
+	color:#f22;
+}
+
+.Questionable
+{
+	color:#ff2;
+}
+
+.Safe
+{
+	color:#2f2;
 }

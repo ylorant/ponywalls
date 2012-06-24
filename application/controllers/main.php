@@ -2,6 +2,13 @@
 
 class Main extends Controller
 {
+	private $ratios;
+	
+	public function __construct()
+	{
+		$this->ratios = array('16:9' => 16/9, '16:10' => 16/10, '4:3' => 4/3, '5:4' => 5/4);
+	}
+	
 	//Main page (search area mainly)
 	public function index()
 	{
@@ -117,6 +124,27 @@ class Main extends Controller
 	{
 		$model = $this->loadModel('Walls_model');
 		$wall = $model->getWallpaper($id);
+		
+		switch($wall['rating'])
+		{
+			case 's':
+				$wall['rating_str'] = 'Safe';
+				break;
+			case 'q':
+				$wall['rating_str'] = 'Questionable';
+				break;
+			case 'e':
+				$wall['rating_str'] = 'Explicit';
+				break;
+		}
+		
+		$size = explode('x', $wall['size']);
+		$ratio = $size[0] / $size[1];
+		
+		if($r = array_search($ratio, $this->ratios))
+			$wall['ratio'] = $r;
+		else
+			$wall['ratio'] = 'Unknown';
 		
 		//header('Location:../static/wall/'.$wall['filename']);
 		$template = $this->loadView('view_view');

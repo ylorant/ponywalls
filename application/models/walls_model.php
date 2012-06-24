@@ -8,8 +8,8 @@ class Walls_model extends Model
 		$orig_filename = htmlentities($orig_filename);
 		$keywords = explode(' ', strtolower(htmlentities($keywords)));
 		
-		$this->prepare('INSERT INTO walls (filename, orig_filename, size, poster, rating) VALUES(?, ?, ?, ?, ?)');
-		$this->execute(array($filename, $orig_filename, $size, $poster, $rating));
+		$this->prepare('INSERT INTO walls (filename, orig_filename, size, poster, rating, time) VALUES(?, ?, ?, ?, ?, ?)');
+		$this->execute(array($filename, $orig_filename, $size, $poster, $rating, time()));
 		$id = $this->lastInsertID();
 		
 		$this->prepare('INSERT IGNORE INTO keywords (keyword) VALUES(?)');
@@ -30,7 +30,7 @@ class Walls_model extends Model
 		return $id;
 	}
 	
-	public function updateWallpaper($id, $keywords)
+	public function updateWallpaper($id, $keywords, $rating)
 	{
 		$keywords = explode(' ', strtolower(htmlentities($keywords)));
 		$this->prepare('DELETE FROM wall_keywords WHERE idWall = ?');
@@ -50,6 +50,9 @@ class Walls_model extends Model
 			$this->execute(array($id, $keyword));
 			$this->_query->closeCursor();
 		}
+		
+		$this->prepare('UPDATE walls SET rating = ? WHERE id = ?');
+		$this->execute(array($rating, $id));
 	}
 	
 	public function searchWallpaper($keywords, $inclusive = FALSE)
@@ -57,10 +60,26 @@ class Walls_model extends Model
 		$data = array();
 		foreach($keywords as $keyword)
 		{
-			$this->prepare('SELECT walls.id, walls.size, walls.filename FROM `walls` 
-							JOIN wall_keywords wk ON wk.idWall = walls.id 
-							JOIN keywords k ON k.id = wk.idKeyword
-							WHERE k.keyword = ?');
+			if(strpos($keyword, ':') !== FALSE)
+			{
+				$components = explode(':', $keyword, 2);
+				switch($components[0])
+				{
+					case 'rating':
+						$this->prepare('SELECT walls.id, walls.size, walls.filename FROM `walls` WHERE walls.rating = ?');
+						break;
+				}
+				
+				$keyword = $components[1];
+			}
+			else
+			{
+				$this->prepare('SELECT walls.id, walls.size, walls.filename FROM `walls` 
+								JOIN wall_keywords wk ON wk.idWall = walls.id 
+								JOIN keywords k ON k.id = wk.idKeyword
+								WHERE k.keyword = ?');
+			}
+			
 			$this->execute(array(strtolower($keyword)));
 			$fetch = $this->fetchAll();
 			if(!empty($data))
@@ -93,9 +112,10 @@ class Walls_model extends Model
 	
 	public function getWallpaper($id)
 	{
-		$this->prepare('SELECT walls.id, walls.size, walls.filename, walls.rating, walls.poster, walls.orig_filename, k.keyword as keywords FROM `walls` 
+		$this->prepare('SELECT walls.id, walls.size, walls.filename, IFNULL(walls.rating, \'s\') AS rating, IFNULL(users.login, \'Anonymous\') AS poster, walls.orig_filename, walls.time, k.keyword as keywords FROM `walls` 
 						JOIN wall_keywords wk ON wk.idWall = walls.id 
 						JOIN keywords k ON k.id = wk.idKeyword
+						LEFT JOIN users ON users.id = walls.poster
 						WHERE walls.id = ?');
 		
 		$this->execute(array($id));

@@ -66,17 +66,28 @@
 				<?php foreach($wallpaper['keywords'] as $keyword) { ?>
 					<p class="tag"><img src="static/images/tag.png" /> <a href="search/<?php echo $keyword; ?>"><?php echo $keyword; ?></a></p>
 				<?php } ?>
-				
+				<div class="infobox">
+					<p class="tag category"><img src="static/images/category.png" /> Posted on <strong><?php echo date('m-d-Y \a\t H:i', $wallpaper['time']); ?></strong></p>
+					<p class="tag category"><img src="static/images/category.png" /> Posted by <strong><?php echo $wallpaper['poster']; ?></strong></p>
+					<p class="tag category"><img src="static/images/category.png" /> Rating <strong class="<?php echo $wallpaper['rating_str']; ?>"><?php echo $wallpaper['rating_str']; ?></strong></p>
+					<p class="tag category"><img src="static/images/category.png" /> Ratio <strong><?php echo $wallpaper['ratio']; ?></strong></p>
+				</div>
 			</div>
-			<div id="editDataForm">
-				<p class="tag category"><img src="static/images/category.png" /> <strong>Tags</strong></p> <p class="separator"> </p><input type="text" name="tags" value="<?php echo join(' ', $wallpaper['keywords']); ?>" />
-			</div>
-			<div style="clear:both;"></div>
 			<div class="bottompanel">
 				<hr />
 				<div class="score"><img id="plusbutton" src="static/images/plus.png" /> 105 <img id="minusbutton" src="static/images/minus.png" /></div>
 				<div class="rfloat button twilightsparkle" onclick="editImageInfo();" id="infoEditButton"><img src="static/images/edit.png" /> Edit</div>
 			</div>
+			<div id="editDataForm">
+				<p class="tag category"><img src="static/images/category.png" /> <strong>Tags</strong></p> <p class="separator"> </p><input type="text" name="tags" value="<?php echo join(' ', $wallpaper['keywords']); ?>" />
+				<p class="tag category"><img src="static/images/category.png" /> <strong>Rating</strong></p> <p class="separator"> </p>
+				<select name="rating" class="button rainbowdash">
+					<option value="s"<?php echo $wallpaper['rating'] == 's' ? ' selected="selected"' : ''; ?>>Safe</option>
+					<option value="q"<?php echo $wallpaper['rating'] == 'q' ? ' selected="selected"' : ''; ?>>Questionable</option>
+					<option value="e"<?php echo $wallpaper['rating'] == 'e' ? ' selected="selected"' : ''; ?>>Explicit</option>
+				</select>
+			</div>
+			
 			</form>
 		</div>
 		<div class="content">

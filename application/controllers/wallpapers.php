@@ -136,7 +136,12 @@ class Wallpapers extends Controller
 			return header('Location:'.BASE_URL.'view/'.$id);
 		
 		$model = $this->loadModel('Walls_model');
-		$model->updateWallpaper($id, $_POST['tags']);
+		$wall = $model->getWallpaper($id);
+		
+		if(!in_array($_POST['rating'], array('s', 'e', 'q')))
+			$_POST['rating'] = $wall['rating'];
+		
+		$model->updateWallpaper($id, $_POST['tags'], $_POST['rating']);
 		
 		return header('Location:'.BASE_URL.'view/'.$id);
 	}
