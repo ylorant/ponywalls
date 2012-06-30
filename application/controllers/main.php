@@ -71,6 +71,7 @@ class Main extends Controller
 		//~ $related = $model->relatedKeywords($keywords);
 		
 		$template = $this->loadView('search_view');
+		$template->set('wrelated', array());
 		
 		if($searchtype == 'inclusive')
 			$template->set('inclusive', TRUE);
