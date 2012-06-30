@@ -85,6 +85,8 @@ class Wallpapers extends Controller
 		else
 			rename($_FILES['file']['tmp_name'], $dest_filename);
 		
+		$md5 = md5_file($dest_filename);
+		
 		//Creating thumbnail
 		switch($mime)
 		{
@@ -120,7 +122,7 @@ class Wallpapers extends Controller
 		
 		//Adding entry in database
 		$model = $this->loadModel('Walls_model');
-		$model->addWallpaper($dest_name.'.'.$dest_ext, $orig_filename, $sx.'x'.$sy, $_POST['tags'], (isset($_SESSION['id']) ? $_SESSION['id'] : -1));
+		$model->addWallpaper($dest_name.'.'.$dest_ext, $orig_filename, $sx.'x'.$sy, $_POST['tags'], (isset($_SESSION['id']) ? $_SESSION['id'] : -1), $md5);
 		
 		$_SESSION['message'] = array('confirm', 'Your wallpaper is uploaded!');
 		if(!$ajax)

@@ -2,14 +2,14 @@
 
 class Walls_model extends Model
 {
-	public function addWallpaper($filename, $orig_filename, $size, $keywords, $poster = -1, $rating = NULL)
+	public function addWallpaper($filename, $orig_filename, $size, $keywords, $poster = -1, $md5sum, $rating = NULL)
 	{
 		//Escaping data
 		$orig_filename = htmlentities($orig_filename);
 		$keywords = explode(' ', strtolower(htmlentities($keywords)));
 		
-		$this->prepare('INSERT INTO walls (filename, orig_filename, size, poster, rating, time) VALUES(?, ?, ?, ?, ?, ?)');
-		$this->execute(array($filename, $orig_filename, $size, $poster, $rating, time()));
+		$this->prepare('INSERT INTO walls (filename, orig_filename, size, poster, rating, time, md5) VALUES(?, ?, ?, ?, ?, ?, ?)');
+		$this->execute(array($filename, $orig_filename, $size, $poster, $rating, time(), $md5sum));
 		$id = $this->lastInsertID();
 		
 		$this->prepare('INSERT IGNORE INTO keywords (keyword) VALUES(?)');
@@ -112,7 +112,7 @@ class Walls_model extends Model
 	
 	public function getWallpaper($id)
 	{
-		$this->prepare('SELECT walls.id, walls.size, walls.filename, IFNULL(walls.rating, \'s\') AS rating, IFNULL(users.login, \'Anonymous\') AS poster, walls.orig_filename, walls.time, k.keyword as keywords FROM `walls` 
+		$this->prepare('SELECT walls.id, walls.size, walls.filename, IFNULL(walls.source, \'spc://unknown\') AS source, IFNULL(walls.rating, \'s\') AS rating, IFNULL(users.login, \'Anonymous\') AS poster, walls.orig_filename, walls.time, k.keyword as keywords FROM `walls` 
 						JOIN wall_keywords wk ON wk.idWall = walls.id 
 						JOIN keywords k ON k.id = wk.idKeyword
 						LEFT JOIN users ON users.id = walls.poster

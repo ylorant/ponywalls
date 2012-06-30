@@ -138,13 +138,32 @@ class Main extends Controller
 				break;
 		}
 		
+		$source = explode('://', $wall['source'], 2);
+		
+		if($source[0] == 'spc')
+		{
+			switch($source[1])
+			{
+				case 'orig':
+					$wall['source'] = 'Original';
+					break;
+				case 'unknown':
+					$wall['source'] = 'Unknown';
+					break;
+			}
+		}
+		
 		$size = explode('x', $wall['size']);
 		$ratio = $size[0] / $size[1];
 		
 		if($r = array_search($ratio, $this->ratios))
 			$wall['ratio'] = $r;
 		else
-			$wall['ratio'] = 'Unknown';
+		{
+			$gcd = gcd($size[0], $size[1]);
+			$wall['ratio'] = 'Unknown ('. ($size[0] / $gcd) .':'. ($size[1]/$gcd) .')';
+		}
+		
 		
 		//header('Location:../static/wall/'.$wall['filename']);
 		$template = $this->loadView('view_view');
@@ -166,5 +185,15 @@ class Main extends Controller
 	}
     
 }
+
+function gcd($n, $m)
+{ 
+    $n=abs($n); $m=abs($m); 
+    if ($n==0 && $m==0) 
+        return 1;
+    if ($n==$m && $n>=1) 
+        return $n; 
+    return $m<$n?gcd($n-$m,$n):gcd($n,$m-$n); 
+} 	
 
 ?>
