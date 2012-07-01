@@ -93,6 +93,7 @@ class Main extends Controller
 		$results = $model->randomWallpapers();
 		
 		$template = $this->loadView('search_view');
+		$template->set('wrelated', array());
 		if(isset($_SESSION['login']))
 		{
 			$template->set('logged', TRUE);
@@ -110,6 +111,7 @@ class Main extends Controller
 		$results = $model->lastWallpapers();
 		
 		$template = $this->loadView('search_view');
+		$template->set('wrelated', array());
 		if(isset($_SESSION['login']))
 		{
 			$template->set('logged', TRUE);
