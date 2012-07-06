@@ -63,15 +63,12 @@ class Wallpapers extends Controller
 		$finfo = finfo_open(FILEINFO_MIME_TYPE);
 		$mime = finfo_file($finfo, $_FILES['file']['tmp_name']);
 		$allowed_mimetypes =  array('image/jpeg', 'image/png', 'image/bmp', 'image/gif', 'image/x-windows-bmp');
-		if(!$ajax)
+		if(!in_array($mime, $allowed_mimetypes))
 		{
-			if(!in_array($mime, $allowed_mimetypes))
-			{
-				$_SESSION['message'] = array('error', 'File type not allowed : '.$mime);
-				if(!$ajax)
-					header('Location:index');
-				return FALSE;
-			}
+			$_SESSION['message'] = array('error', 'File type not allowed : '.$mime);
+			if(!$ajax)
+				header('Location:index');
+			return FALSE;
 		}
 		
 		//Finally, saving the wallpaper

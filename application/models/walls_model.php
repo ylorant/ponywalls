@@ -23,8 +23,11 @@ class Walls_model extends Model
 		$this->prepare('INSERT INTO wall_keywords (idWall, idKeyword) VALUES(?, (SELECT id FROM keywords WHERE keyword = ?))');
 		foreach($keywords as $keyword)
 		{
-			$this->execute(array($id, $keyword));
-			$this->_query->closeCursor();
+			if(!empty($keyword))
+			{
+				$this->execute(array($id, $keyword));
+				$this->_query->closeCursor();
+			}
 		}
 		
 		return $id;
@@ -40,8 +43,11 @@ class Walls_model extends Model
 		
 		foreach($keywords as $keyword)
 		{
-			$this->execute(array($keyword));
-			$this->_query->closeCursor();
+			if(!empty($keyword))
+			{
+				$this->execute(array($keyword));
+				$this->_query->closeCursor();
+			}
 		}
 		
 		$this->prepare('INSERT INTO wall_keywords (idWall, idKeyword) VALUES(?, (SELECT id FROM keywords WHERE keyword = ?))');
