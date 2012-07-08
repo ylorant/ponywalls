@@ -12,20 +12,15 @@ class Wallpapers extends Controller
 				'static/tmp/' . $fn,  
 				file_get_contents('php://input')  
 			);
+			
+			//Simulate a regular upload, to call the regular upload method, much shorter than copy the code in the method below
 			$_FILES = array();
 			$_FILES['file'] = array('size' => filesize('static/tmp/'.$fn), 'tmp_name' => 'static/tmp/'.$fn, 'error' => 0, 'name' => $fn);
 			$_POST = array();
 			$_POST['tags'] = urldecode($tags);
 			$ret = $this->add(TRUE);
 			if(!$ret)
-			{
 				unlink('static/tmp/'.$fn);
-/*
-				
-					unlink('static/wall/'.$fn);
-					unlink('static/thumbs/'.$fn);
-*/
-			}
 			echo 'ok';
 		}
 	}
@@ -83,6 +78,18 @@ class Wallpapers extends Controller
 			rename($_FILES['file']['tmp_name'], $dest_filename);
 		
 		$md5 = md5_file($dest_filename);
+		$model = $this->loadModel('Walls_model');
+		
+		//Checking if the MD5 already exists in the database, i.e. if the wallpaper has already been uploaded.
+		if($model->wallpaperMD5Exists($md5))
+		{
+			unlink($dest_filename); //Deleting the final file.
+			$_SESSION['message'] = array('error', 'This wallpaper already exists');
+			if(!$ajax)
+				header('Location:index');
+			return FALSE;
+		}
+		
 		
 		//Creating thumbnail
 		switch($mime)
@@ -102,6 +109,8 @@ class Wallpapers extends Controller
 				break;
 		}
 		
+		//Calculating the thumbnail size, for a maximum size of 200*125
+		//The resizing is calculated according the original size, to let it fit while not deforming the thumb (adding black borders if necessary)
 		$sx = imagesx($src_image);
 		$sy = imagesy($src_image);
 		
@@ -113,12 +122,11 @@ class Wallpapers extends Controller
 			$dx = (125 * $sx) / $sy;
 		
 		$dst_image = imagecreatetruecolor(200, 125);
-		imagecopyresampled($dst_image, $src_image, 100 - ($dx / 2), 63 - ($dy / 2), 0, 0, $dx, $dy, $sx, $sy);
+		imagecopyresampled($dst_image, $src_image, 100 - ($dx / 2), 63 - ($dy / 2), 0, 0, $dx, $dy, $sx, $sy); //Takes a lot of time.
 		
 		imagepng($dst_image, 'static/thumbs/'.$dest_name.'.png');
 		
 		//Adding entry in database
-		$model = $this->loadModel('Walls_model');
 		$model->addWallpaper($dest_name.'.'.$dest_ext, $orig_filename, $sx.'x'.$sy, $_POST['tags'], (isset($_SESSION['id']) ? $_SESSION['id'] : -1), $md5);
 		
 		$_SESSION['message'] = array('confirm', 'Your wallpaper is uploaded!');

@@ -69,7 +69,7 @@
 				<div class="infobox">
 					<p class="tag category"><img src="static/images/category.png" /> Posted on <strong><?php echo date('m-d-Y \a\t H:i', $wallpaper['time']); ?></strong></p>
 					<p class="tag category"><img src="static/images/category.png" /> Posted by <strong><?php echo $wallpaper['poster']; ?></strong></p>
-					<p class="tag category"><img src="static/images/category.png" /> Rating <strong class="<?php echo $wallpaper['rating_str']; ?>"><?php echo $wallpaper['rating_str']; ?></strong></p>
+					<p class="tag category"><img src="static/images/category.png" /> Rating <strong class="<?php echo $wallpaper['rating_str']; ?>"><a href="search/rating:<?php echo $wallpaper['rating']; ?>"><?php echo $wallpaper['rating_str']; ?></a></strong></p>
 					<p class="tag category"><img src="static/images/category.png" /> Size <strong ><?php echo $wallpaper['size']; ?></strong></p>
 					<p class="tag category"><img src="static/images/category.png" /> Ratio <strong><?php echo $wallpaper['ratio']; ?></strong></p>
 					<p class="tag category"><img src="static/images/category.png" /> Source <strong><?php echo $wallpaper['source']; ?></strong></p>

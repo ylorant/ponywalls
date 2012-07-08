@@ -4,12 +4,29 @@ class Walls_model extends Model
 {
 	public function addWallpaper($filename, $orig_filename, $size, $keywords, $poster = -1, $md5sum, $rating = NULL)
 	{
+		//Null values for non-mandatory data
+		$data = array(	'author' => null,
+						'source' => null,
+						'rating' => $rating);
+		
 		//Escaping data
 		$orig_filename = htmlentities($orig_filename);
 		$keywords = explode(' ', strtolower(htmlentities($keywords)));
 		
-		$this->prepare('INSERT INTO walls (filename, orig_filename, size, poster, rating, time, md5) VALUES(?, ?, ?, ?, ?, ?, ?)');
-		$this->execute(array($filename, $orig_filename, $size, $poster, $rating, time(), $md5sum));
+		//Special value keywords (like author:johnjoseco)
+		foreach($keywords as $id => $keyword)
+		{
+			if(strpos($keyword, ':'))
+			{
+				$keyword = explode(':', $keyword, 2);
+				$data[$keyword[0]] = $keyword[1];
+				
+				unset($keywords[$id]);
+			}
+		}
+		
+		$this->prepare('INSERT INTO walls (filename, orig_filename, size, poster, rating, time, md5, author, source) VALUES(?, ?, ?, ?, ?, ?, ?)');
+		$this->execute(array($filename, $orig_filename, $size, $poster, $data['rating'], time(), $md5sum, $data['author'], $data['source']));
 		$id = $this->lastInsertID();
 		
 		$this->prepare('INSERT IGNORE INTO keywords (keyword) VALUES(?)');
@@ -35,15 +52,30 @@ class Walls_model extends Model
 	
 	public function updateWallpaper($id, $keywords, $rating)
 	{
+		//Escaping
 		$keywords = explode(' ', strtolower(htmlentities($keywords)));
+		
+		//Deleting all previous wall-keyword associations, we don't like to have duplicates in the DB
 		$this->prepare('DELETE FROM wall_keywords WHERE idWall = ?');
 		$this->execute(array($id));
 		
+		//All fields
+		$fields = array('author' => null,
+						'rating' => $rating,
+						'source' => null);
+		
 		$this->prepare('INSERT IGNORE INTO keywords (keyword) VALUES(?)');
 		
-		foreach($keywords as $keyword)
+		foreach($keywords as $keyId => $keyword)
 		{
-			if(!empty($keyword))
+			if(strpos($keyword, ':')) //Special value keywords
+			{
+				$keyword = explode(':', $keyword, 2);
+				$fields[$keyword[0]] = $keyword[1];
+				
+				unset($keywords[$keyId]);
+			}
+			elseif(!empty($keyword))
 			{
 				$this->execute(array($keyword));
 				$this->_query->closeCursor();
@@ -57,8 +89,8 @@ class Walls_model extends Model
 			$this->_query->closeCursor();
 		}
 		
-		$this->prepare('UPDATE walls SET rating = ? WHERE id = ?');
-		$this->execute(array($rating, $id));
+		$this->prepare('UPDATE walls SET rating = ?, author = ?, source = ? WHERE id = ?');
+		$this->execute(array($fields['rating'], $fields['author'], $fields['source'], $id));
 	}
 	
 	public function searchWallpaper($keywords, $inclusive = FALSE)
@@ -119,13 +151,16 @@ class Walls_model extends Model
 	public function getWallpaper($id)
 	{
 		$this->prepare('SELECT walls.id, walls.size, walls.filename, IFNULL(walls.source, \'spc://unknown\') AS source, IFNULL(walls.rating, \'s\') AS rating, IFNULL(users.login, \'Anonymous\') AS poster, walls.orig_filename, walls.time, k.keyword as keywords FROM `walls` 
-						JOIN wall_keywords wk ON wk.idWall = walls.id 
-						JOIN keywords k ON k.id = wk.idKeyword
+						LEFT JOIN wall_keywords wk ON wk.idWall = walls.id 
+						LEFT JOIN keywords k ON k.id = wk.idKeyword
 						LEFT JOIN users ON users.id = walls.poster
 						WHERE walls.id = ?');
 		
 		$this->execute(array($id));
 		$ret = $this->fetchAll();
+		
+		if(empty($ret))
+			return FALSE;
 		
 		$data = $ret[0];
 		$data['keywords'] = array();
@@ -134,6 +169,17 @@ class Walls_model extends Model
 			$data['keywords'][] = $val['keywords'];
 		
 		return $data;
+	}
+	
+	public function wallpaperMD5Exists($md5)
+	{
+		$this->prepare('SELECT id FROM walls WHERE md5 = ?');
+		$this->execute($md5);
+		
+		if($this->fetch())
+			return false;
+		else
+			return true;
 	}
 	
 	public function merge($arr1, $arr2)

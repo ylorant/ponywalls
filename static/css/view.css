@@ -127,17 +127,19 @@
 	margin-left:5px;
 }
 
-.Explicit
+.Explicit a
 {
 	color:#f22;
 }
 
-.Questionable
+.Questionable a
 {
 	color:#ff2;
 }
 
-.Safe
+.Safe a
 {
 	color:#2f2;
 }
+
+

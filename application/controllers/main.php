@@ -128,6 +128,13 @@ class Main extends Controller
 		$model = $this->loadModel('Walls_model');
 		$wall = $model->getWallpaper($id);
 		
+		if($wall == FALSE)
+		{
+			$_SESSION['message'] = array('error', 'This wallpaper does not exists');
+			header('index.php');
+			exit();
+		}
+		
 		switch($wall['rating'])
 		{
 			case 's':
