@@ -19,7 +19,7 @@ class Wallpapers extends Controller
 			$_POST = array();
 			$_POST['tags'] = urldecode($tags);
 			$ret = $this->add(TRUE);
-			if(!$ret)
+			if(!$ret && is_file('static/tmp/'.$fn))
 				unlink('static/tmp/'.$fn);
 			echo 'ok';
 		}
@@ -81,7 +81,7 @@ class Wallpapers extends Controller
 		$model = $this->loadModel('Walls_model');
 		
 		//Checking if the MD5 already exists in the database, i.e. if the wallpaper has already been uploaded.
-		if($model->wallpaperMD5Exists($md5))
+		if(!$model->wallpaperMD5Exists($md5))
 		{
 			unlink($dest_filename); //Deleting the final file.
 			$_SESSION['message'] = array('error', 'This wallpaper already exists');

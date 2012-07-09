@@ -25,7 +25,7 @@ class Walls_model extends Model
 			}
 		}
 		
-		$this->prepare('INSERT INTO walls (filename, orig_filename, size, poster, rating, time, md5, author, source) VALUES(?, ?, ?, ?, ?, ?, ?)');
+		$this->prepare('INSERT INTO walls (filename, orig_filename, size, poster, rating, time, md5, author, source) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)');
 		$this->execute(array($filename, $orig_filename, $size, $poster, $data['rating'], time(), $md5sum, $data['author'], $data['source']));
 		$id = $this->lastInsertID();
 		
@@ -174,9 +174,10 @@ class Walls_model extends Model
 	public function wallpaperMD5Exists($md5)
 	{
 		$this->prepare('SELECT id FROM walls WHERE md5 = ?');
-		$this->execute($md5);
+		$this->execute(array($md5));
+		$data = $this->fetch();
 		
-		if($this->fetch())
+		if(!empty($data))
 			return false;
 		else
 			return true;
