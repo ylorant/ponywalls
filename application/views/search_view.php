@@ -43,25 +43,16 @@
 				<input type="submit" value="Register" class="button pinkiepie rfloat" />
 			</form>
 		</div>
-			<a href="index"><img class="logo" src="static/images/logo.png" /></a>
-			<form method="post" action="search" class="search">
-				<input type="text" name="search" value="<?php echo $search; ?>" /> <input type="submit" class="button twilightsparkle" value="Search" />
-				<select name="searchtype" class="button pinkiepie">
-					<option value="exclusive">All the terms</option>
-					<option value="inclusive"<?php if(isset($inclusive) && $inclusive) echo ' selected="selected"'; ?>>One of the terms</option>
-				</select>
-			</form>
-			<div class="rfloat topbutton">
-				<a class="button pinkiepie" onclick="toggleData();"><img src="static/images/info.png" /> Related</a>
-			</div>
-			<div class="contextzone">
-				<div id="dataShow">
-				<p class="tag category"><img src="static/images/category.png" /> <strong>Tags</strong></p> <p class="separator"> </p>
-				<?php foreach($wrelated as $keyword) { ?>
-					<p class="tag"><img src="static/images/tag.png" /> <a href="search/<?php echo $keyword; ?>"><?php echo $keyword; ?></a></p>
-				<?php } ?>
-			</div>
-			</div>
+		<a href="index"><img class="logo" src="static/images/logo.png" /></a>
+		<form method="post" action="search" class="search">
+			<input type="text" name="search" value="<?php echo $search; ?>" /> <input type="submit" class="button twilightsparkle" value="Search" />
+			<select name="searchtype" class="button pinkiepie">
+				<option value="exclusive">All the terms</option>
+				<option value="inclusive"<?php if(isset($inclusive) && $inclusive) echo ' selected="selected"'; ?>>One of the terms</option>
+			</select>
+		</form>
+		<div class="rfloat topbutton">
+			<a class="button pinkiepie" onclick="toggleData();"><img src="static/images/info.png" /> Related</a>
 		</div>
 		<div class="content">
 			<?php if(count($results) > 0) { ?>

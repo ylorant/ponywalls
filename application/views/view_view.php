@@ -60,36 +60,74 @@
 				<a class="button rainbowdash" onclick="toggleComments();"><img src="static/images/comments.png" /> Comments</a>
 			</div>
 		</div>
-		<div class="contextzone"><form method="post" id="dataEditForm" action="wallpapers/edit/<?php echo $wallpaper['id']; ?>">
-			<div id="dataShow">
-				<p class="tag category"><img src="static/images/category.png" /> <strong>Tags</strong></p> <p class="separator"> </p>
-				<?php foreach($wallpaper['keywords'] as $keyword) { ?>
-					<p class="tag"><img src="static/images/tag.png" /> <a href="search/<?php echo $keyword; ?>"><?php echo $keyword; ?></a></p>
-				<?php } ?>
-				<div class="infobox">
-					<p class="tag category"><img src="static/images/category.png" /> Posted on <strong><?php echo date('m-d-Y \a\t H:i', $wallpaper['time']); ?></strong></p>
-					<p class="tag category"><img src="static/images/category.png" /> Posted by <strong><?php echo $wallpaper['poster']; ?></strong></p>
-					<p class="tag category"><img src="static/images/category.png" /> Rating <strong class="<?php echo $wallpaper['rating_str']; ?>"><a href="search/rating:<?php echo $wallpaper['rating']; ?>"><?php echo $wallpaper['rating_str']; ?></a></strong></p>
-					<p class="tag category"><img src="static/images/category.png" /> Size <strong ><?php echo $wallpaper['size']; ?></strong></p>
-					<p class="tag category"><img src="static/images/category.png" /> Ratio <strong><?php echo $wallpaper['ratio']; ?></strong></p>
-					<p class="tag category"><img src="static/images/category.png" /> Source <strong><?php echo $wallpaper['source']; ?></strong></p>
+		<div class="contextzone">
+			<form method="post" id="dataEditForm" action="wallpapers/edit/<?php echo $wallpaper['id']; ?>">
+				<div id="dataShow">
+					<p>
+						<strong><img src="static/images/category.png" /></strong>
+						<span>Tags</span>
+					</p>
+					<?php foreach($wallpaper['keywords'] as $keyword): ?>
+					<p>
+						<strong><img src="static/images/tag.png" /></strong>
+						<span><a href="search/<?php echo $keyword; ?>"><?php echo $keyword; ?></a></span>
+					</p>
+					<?php endforeach; ?>
+					<hr />
+					<div class="infobox">
+						<p>
+							<strong><img src="static/images/category.png" /> Posted on</strong>
+							<span><?php echo date('m-d-Y \a\t H:i', $wallpaper['time']); ?></span>
+						</p>
+						<p>
+							<strong><img src="static/images/category.png" /> Posted by</strong>
+							<span><?php echo $wallpaper['poster']; ?></span>
+						</p>
+						<p>
+							<strong><img src="static/images/category.png" /> Rating</strong>
+							<span class="<?php echo $wallpaper['rating_str']; ?>">
+								<a href="search/rating:<?php echo $wallpaper['rating']; ?>"><?php echo $wallpaper['rating_str']; ?></a>
+							</span>
+						</p>
+						<p>
+							<strong><img src="static/images/category.png" /> Size</strong>
+							<span><?php echo $wallpaper['size']; ?></span>
+						</p>
+						<p>
+							<strong><img src="static/images/category.png" /> Ratio</strong>
+							<span><?php echo $wallpaper['ratio']; ?></span>
+						</p>
+						<p>
+							<strong><img src="static/images/category.png" /> Source</strong>
+							<span>
+								<?php if($wallpaper['source_url'] != null): ?>
+									<a href="<?php echo $wallpaper['source_url']; ?>"><?php echo $wallpaper['source']; ?></a>
+								<?php else: echo $wallpaper['source']; endif; ?>
+							</span>
+						</p>
+					</div>
 				</div>
-			</div>
-			<div class="bottompanel">
-				<hr />
-				<div class="score"><img id="plusbutton" src="static/images/plus.png" /> 105 <img id="minusbutton" src="static/images/minus.png" /></div>
-				<div class="rfloat button twilightsparkle" onclick="editImageInfo();" id="infoEditButton"><img src="static/images/edit.png" /> Edit</div>
-			</div>
-			<div id="editDataForm">
-				<p class="tag category"><img src="static/images/category.png" /> <strong>Tags</strong></p> <p class="separator"> </p><input type="text" name="tags" value="<?php echo join(' ', $wallpaper['keywords']); ?>" />
-				<p class="tag category"><img src="static/images/category.png" /> <strong>Rating</strong></p> <p class="separator"> </p>
-				<select name="rating" class="button rainbowdash">
-					<option value="s"<?php echo $wallpaper['rating'] == 's' ? ' selected="selected"' : ''; ?>>Safe</option>
-					<option value="q"<?php echo $wallpaper['rating'] == 'q' ? ' selected="selected"' : ''; ?>>Questionable</option>
-					<option value="e"<?php echo $wallpaper['rating'] == 'e' ? ' selected="selected"' : ''; ?>>Explicit</option>
-				</select>
-			</div>
-			
+				<div class="bottompanel">
+					<hr />
+					<div class="score"><img id="plusbutton" src="static/images/plus.png" /> 105 <img id="minusbutton" src="static/images/minus.png" /></div>
+					<div class="rfloat button twilightsparkle" onclick="editImageInfo();" id="infoEditButton"><img src="static/images/edit.png" /> Edit</div>
+				</div>
+				<div id="editDataForm">
+					<p>
+						<strong><img src="static/images/category.png" /></strong>
+						<span>Tags</span>
+					</p>
+					<input type="text" name="tags" value="<?php echo join(' ', $wallpaper['keywords']); ?>" />
+					<p>
+						<strong><img src="static/images/category.png" /></strong>
+						<span>Rating</span>
+					</p>
+					<select name="rating" class="button rainbowdash">
+						<option value="s"<?php echo $wallpaper['rating'] == 's' ? ' selected="selected"' : ''; ?>>Safe</option>
+						<option value="q"<?php echo $wallpaper['rating'] == 'q' ? ' selected="selected"' : ''; ?>>Questionable</option>
+						<option value="e"<?php echo $wallpaper['rating'] == 'e' ? ' selected="selected"' : ''; ?>>Explicit</option>
+					</select>
+				</div>
 			</form>
 		</div>
 		<div class="content">

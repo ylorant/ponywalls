@@ -34,14 +34,19 @@
 	padding:4px 6px;
 	margin:0px;
 	width:300px;
-	margin-top:10px;
+	margin-bottom:5px;
 	margin-left:10px;
 	color:#fff;
 }
 
 #editDataForm select
 {
-	margin-top:10px;
+	font-size:1em;
+	position:relative;
+	padding:2px;
+	padding-left:4px;
+	top:-12px;
+	margin-top:0px;
 }
 
 #editDataForm input
@@ -74,57 +79,121 @@
 	margin-right:5px;
 }
 
-.contextzone
+div.contextzone
 {
-	width:20%;
-	bottom:0px;
-	border-bottom:0px;
-	border-right:1px solid #444;
 	display:block;
+	width:20%;
+	position:absolute;
+	top:80px;
+	bottom:0px;
+	left:0px;
+	
 	padding-right:10px;
+	
+	border-right:1px solid #444;
+	background-color:#121212;
+	border-bottom:0px;
+	border-top:1px solid #444;
+	
+	
+	font-size:0.8em;
+	z-index:3;
 	box-shadow:1px 1px #222222;
 }
 
-.contextzone input
+div.contextzone input
 {
 	max-width: 85%;
 }
 
-.contextzone p
-{
-	display:block;
-}
-
-.bottompanel
+div.bottompanel
 {
 	position:absolute;
 	width:100%;
 	bottom:5px;
 }
 
-.contextzone hr
+div.contextzone hr
 {
 	margin:5px 0px;
+	border:0px;
+	border-top:1px solid #1F1F1F;
 }
 
-.infobox
+div.infobox
 {
 	clear:both;
-	border-top:1px solid #1F1F1F;
 	padding:5px;
 	position:relative;
 	top:10px;
 }
 
-.infobox .category
+/* Context zone (on the left) */
+
+div.contextzone p
 {
-	display:block;
-	clear:both;
+	
+	display:inline-block;
+	margin-right:0px;
+	padding:0px 6px;
+	margin:0px;
+	margin-left:5px;
+	margin-top:5px;
+	
+	background-color:#1F1F1F;
+	
+	border-radius:5px;
 }
 
-.infobox .tag strong
+div.contextzone p span
 {
-	margin-left:5px;
+	display:inline-block;
+	margin-top:4px;
+	margin-bottom:4px;
+}
+
+div.contextzone p strong
+{
+	position:relative;
+	float:left;
+	left:-6px;
+	padding:4px 6px;
+	height:100%;
+	
+	background-color:#282828;
+	
+	border-radius:5px 0px 0px 5px;
+}
+
+div.contextzone p strong img
+{
+	position:relative;
+	top:2px;
+}
+
+div.contextzone div.infobox p
+{
+	display:block;
+	float:left;
+	clear:both;
+	margin:5px;
+}
+
+div.contextzone .button
+{
+	margin: 0px;
+	margin-left: 5px;
+	margin-right: 8px;
+	padding-top: 5px;
+	padding-bottom: 3px;
+	
+	font-size:.9em;
+	font-weight:normal;
+}
+
+div.contextzone .button img
+{
+	top:0px;
 }
 
 .Explicit a

@@ -148,10 +148,12 @@ class Main extends Controller
 				break;
 		}
 		
+		//Origin determination, from URL
 		$source = explode('://', $wall['source'], 2);
 		
 		if($source[0] == 'spc')
 		{
+			$wall['source_url'] = null;
 			switch($source[1])
 			{
 				case 'orig':
@@ -162,7 +164,14 @@ class Main extends Controller
 					break;
 			}
 		}
+		elseif($source[0] == 'http')
+		{
+			$source[1] = explode('/', $source[1]);
+			$wall['source_url'] = $wall['source'];
+			$wall['source'] = $source[1][0];
+		}
 		
+		//Ratio determination
 		$size = explode('x', $wall['size']);
 		$ratio = $size[0] / $size[1];
 		
@@ -175,7 +184,8 @@ class Main extends Controller
 		}
 		
 		
-		//header('Location:../static/wall/'.$wall['filename']);
+		
+		
 		$template = $this->loadView('view_view');
 		
 		if(isset($_SESSION['login']))
