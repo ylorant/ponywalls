@@ -1,7 +1,21 @@
 <?php
+namespace Controller;
+use \Model\Wallpaper;
+use \Model\Model;
+use \Model\User;
+use \Plugin\JSON;
+use \Debug;
 
 class Wallpapers extends Controller
 {
+	private $user;
+	
+	public function __construct()
+	{
+		if(!empty($_SESSION['user']))
+			$this->user = Model::unserialize($_SESSION['user'], new User());
+	}
+	
 	public function add_ajax($tags)
 	{
 		$fn = (isset($_SERVER['HTTP_X_FILENAME']) ? $_SERVER['HTTP_X_FILENAME'] : false);
@@ -32,7 +46,7 @@ class Wallpapers extends Controller
 		{
 			$_SESSION['message'] = array('error', 'Unknown error.');
 			if(!$ajax)
-				header('Location:index');
+				$this->redirect('index');
 			return FALSE;
 		}
 	
@@ -78,10 +92,10 @@ class Wallpapers extends Controller
 			rename($_FILES['file']['tmp_name'], $dest_filename);
 		
 		$md5 = md5_file($dest_filename);
-		$model = $this->loadModel('Walls_model');
+		$wallpaper = new Wallpaper();
 		
 		//Checking if the MD5 already exists in the database, i.e. if the wallpaper has already been uploaded.
-		if(!$model->wallpaperMD5Exists($md5))
+		if(!$wallpaper->MD5Exists($md5))
 		{
 			unlink($dest_filename); //Deleting the final file.
 			$_SESSION['message'] = array('error', 'This wallpaper already exists');
@@ -127,7 +141,15 @@ class Wallpapers extends Controller
 		imagepng($dst_image, 'static/thumbs/'.$dest_name.'.png');
 		
 		//Adding entry in database
-		$model->addWallpaper($dest_name.'.'.$dest_ext, $orig_filename, $sx.'x'.$sy, $_POST['tags'], (isset($_SESSION['id']) ? $_SESSION['id'] : -1), $md5);
+		$wallpaper->filename = $dest_name.'.'.$dest_ext;
+		$wallpaper->orig_filename = $orig_filename;
+		$wallpaper->size = $sx.'x'.$sy;
+		$wallpaper->keywords = explode(' ', $_POST['tags']);
+		$wallpaper->poster = (isset($_SESSION['id']) ? $_SESSION['id'] : NULL);
+		$wallpaper->md5 = $md5;
+		$wallpaper->time = time();
+		
+		$wallpaper->create();
 		
 		$_SESSION['message'] = array('confirm', 'Your wallpaper is uploaded!');
 		if(!$ajax)
@@ -139,17 +161,105 @@ class Wallpapers extends Controller
 	//Updating wallpaper info.
 	public function edit($id)
 	{
-		if(!isset($_POST['tags']))
-			return header('Location:'.BASE_URL.'view/'.$id);
+		if(!isset($_POST['tags'], $_POST['rating'], $_POST['author'], $_POST['source']))
+		{
+			$_SESSION['message'] = array('error', 'Unknown error.');
+			$this->redirect('view/'.$id);
+			return FALSE;
+		}
 		
-		$model = $this->loadModel('Walls_model');
-		$wall = $model->getWallpaper($id);
+		$wall = new Wallpaper($id);
+		
+		if(empty($wall->id))
+		{
+			$_SESSION['message'] = array('error', 'This wallpaper does not exists.');
+			$this->redirect('index');
+			return FALSE;
+		}
+		
+		if($wall->statusKey != $_GET["key"])
+		{
+			$_SESSION['message'] = array('error', 'This wallpaper has been modified. Please try again.');
+			$this->redirect('view/'.$id);
+			return FALSE;
+		}
 		
 		if(!in_array($_POST['rating'], array('s', 'e', 'q')))
 			$_POST['rating'] = $wall['rating'];
 		
-		$model->updateWallpaper($id, $_POST['tags'], $_POST['rating']);
+		$wall->rating = $_POST['rating'];
+		$wall->keywords = explode(' ', $_POST['tags']);
+		$wall->author = $_POST['author'];
+		$wall->source = $_POST['source'];
+		$wall->save();
 		
 		return header('Location:'.BASE_URL.'view/'.$id);
+	}
+	
+	//Yay wallpapers (adding score)
+	public function yay($id)
+	{
+		$json = new JSON();
+		$json->result = false;
+		$json->key = $wall->statusKey;
+		
+		if(empty($this->user))
+			$json->message = "You need to be logged to Yay wallpapers.";
+		else
+		{
+			$wall = new Wallpaper($id);
+			
+			if(empty($wall->id))
+				$json->message = 'This wallpaper does not exists.';
+			elseif($wall->statusKey != $_POST["key"])
+				$json->message = 'This wallpaper has been modified. Please try again.';
+			elseif(!$wall->addScore($this->user))
+				$json->message = 'An unknown error occured.';
+			else
+			{
+				$json->result = true;
+				$json->score = ++$wall->score;
+				$json->key = $wall->computeStatusKey();
+			}
+		}
+		
+		Debug::terminate();
+		$json->debug = (string) Debug::getInstance();
+		
+		echo $json;
+	}
+	
+	//Hush wallpapers (removing score)
+	public function hush($id)
+	{
+		$wall = new Wallpaper($id);
+		
+		$json = new JSON();
+		$json->result = false;
+		$json->key = $wall->statusKey;
+		
+		if(empty($this->user))
+			$json->message = "You need to be logged to Hush wallpapers.";
+		else
+		{
+			
+			if(empty($wall->id))
+				$json->message = 'This wallpaper does not exists.';
+			elseif($wall->statusKey != $_POST["key"])
+				$json->message = 'This wallpaper has been modified. Please try again.';
+			elseif(!$wall->removeScore($this->user))
+				$json->message = 'An unknown error occured.';
+			else
+			{
+				$json->result = true;
+				$json->score = --$wall->score;
+				$json->key = $wall->computeStatusKey();
+			}
+		}
+		
+		Debug::terminate();
+		$json->debug = (string) Debug::getInstance();
+		
+		echo $json;
 	}
 }

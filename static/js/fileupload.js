@@ -34,7 +34,7 @@ function Init() {
 }
 
 function FileDragHover(e) { 
-	showUploadDialog();
+	ponywalls.showUploadDialog();
     e.stopPropagation();  
     e.preventDefault();  
     //e.target.className = (e.type == "dragover" ? "hover" : "");  
@@ -47,7 +47,7 @@ function FileSelectHandler(e) {
     var files = e.target.files || e.dataTransfer.files;  
     // process all File objects  
  	t = prompt("Type tags for "+files[0].name);
- 	toggleUploadWait();
+ 	ponywalls.toggleUploadWait();
 	UploadFile(files[0], t);
 }  
 

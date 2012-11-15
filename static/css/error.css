@@ -1,0 +1,17 @@
+div.content
+{
+
+}
+
+div.content h1
+{
+	margin-left:50px;
+	position:relative;
+	top:-15px;
+}
+
+div.debug-window
+{
+	top:150px;
+	display:block;
+}

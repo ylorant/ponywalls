@@ -1,4 +1,5 @@
 <?php
+namespace Model;
 
 class Users_model extends Model
 {

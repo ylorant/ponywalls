@@ -1,4 +1,5 @@
 <?php
+namespace Model;
 
 class Walls_model extends Model
 {
@@ -50,19 +51,21 @@ class Walls_model extends Model
 		return $id;
 	}
 	
-	public function updateWallpaper($id, $keywords, $rating)
+	public function updateWallpaper($id, $keywords, $rating, $author, $source)
 	{
 		//Escaping
 		$keywords = explode(' ', strtolower(htmlentities($keywords)));
+		$author = htmlentities($author);
+		$source = htmlentities($source);
 		
 		//Deleting all previous wall-keyword associations, we don't like to have duplicates in the DB
 		$this->prepare('DELETE FROM wall_keywords WHERE idWall = ?');
 		$this->execute(array($id));
 		
 		//All fields
-		$fields = array('author' => null,
+		$fields = array('author' => $author,
 						'rating' => $rating,
-						'source' => null);
+						'source' => $source);
 		
 		$this->prepare('INSERT IGNORE INTO keywords (keyword) VALUES(?)');
 		
@@ -150,7 +153,7 @@ class Walls_model extends Model
 	
 	public function getWallpaper($id)
 	{
-		$this->prepare('SELECT walls.id, walls.size, walls.filename, IFNULL(walls.source, \'spc://unknown\') AS source, IFNULL(walls.rating, \'s\') AS rating, IFNULL(users.login, \'Anonymous\') AS poster, walls.orig_filename, walls.time, k.keyword as keywords FROM `walls` 
+		$this->prepare('SELECT walls.id, walls.size, walls.filename, IFNULL(walls.source, \'spc://unknown\') AS source, IFNULL(walls.rating, \'s\') AS rating, IFNULL(users.login, \'Anonymous\') AS poster, walls.author, walls.orig_filename, walls.time, k.keyword as keywords FROM `walls` 
 						LEFT JOIN wall_keywords wk ON wk.idWall = walls.id 
 						LEFT JOIN keywords k ON k.id = wk.idKeyword
 						LEFT JOIN users ON users.id = walls.poster

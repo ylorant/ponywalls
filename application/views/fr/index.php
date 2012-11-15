@@ -8,6 +8,7 @@
 		<script type="text/javascript" src="static/js/effects.js"></script>
 		<link rel="stylesheet" href="static/css/buttons.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="static/css/index.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="static/css/debug.css" type="text/css" media="screen" />
 		<link rel="shortcut icon" type="image/x-icon" href="static/images/favicon.ico" />
 	</head>
 	
@@ -36,32 +37,32 @@
 		<?php } ?>
 		<div class="topbar">
 			<ul>
-				<li>Blacklist</li>
-				<li>Ratings</li>
+				<li>Liste noire</li>
+				<li>Notes</li>
 			</ul>
 			<ul class="rfloat">
 				<?php if(!isset($logged)) { ?>
-					<li><a onclick="toggleLoginDialog();">Login</a></li>
-					<li><a onclick="toggleRegisterDialog();">Register</a></li>
+					<li><a onclick="toggleLoginDialog();">Connexion</a></li>
+					<li><a onclick="toggleRegisterDialog();">Enregistrement</a></li>
 				<?php } else { ?>
-					<li>Welcome back, <?php echo $userData['login']; ?> !</li>
-					<li><a href="members/logout">Logout</a></li>
+					<li>Bonjour, <?php echo $user->login; ?> !</li>
+					<li><a href="members/logout">Déconnexion</a></li>
 				<?php } ?>
 			</ul>
 		</div>
 		<div id="loginBox">
-		<form method="post" action="members/login">
-			Username : <input type="text" name="login" /><br />
-			Password : <input type="password" name="password" /><br />
-			<input type="submit" value="Login" class="button rainbowdash rfloat" />
+		<form method="post" action="users/login">
+			Nom d'utilisateur : <input type="text" name="login" /><br />
+			Mot de passe : <input type="password" name="password" /><br />
+			<input type="submit" value="Connexion" class="button rainbowdash rfloat" />
 		</form>
 		</div>
 		<div id="registerBox">
-		<form method="post" action="members/register">
-			Username : <input type="text" name="login" /><br />
-			Password : <input type="password" name="password" /><br />
-			Type again : <input type="password" name="passwordcheck" /><br />
-			<input type="submit" value="Register" class="button pinkiepie rfloat" />
+		<form method="post" action="users/register">
+			Nom d'utilisateur : <input type="text" name="login" /><br />
+			Mot de passe : <input type="password" name="password" /><br />
+			Vérification : <input type="password" name="passwordcheck" /><br />
+			<input type="submit" value="Valider" class="button pinkiepie rfloat" />
 		</form>
 		</div>
 		<div class="header">
@@ -77,7 +78,7 @@
 		</div>
 		<div id="imguploaddialog" class="dialog upload nodisplay">
 			<form method="post" id="uploadform" action="wallpapers/add" enctype="multipart/form-data">
-				<h1>Upload a wallpaper</h1>
+				<h1>Envoyer un fond d'écran</h1>
 				<img src="static/images/celestia_message.png" id="celestiasmessage" alt="message" />
 				<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo MAX_FILE_SIZE; ?>" />
 				<!--<label for="filetags">Tag it : </label><input type="text" name="tags" id="filetags" /><br />-->
@@ -85,31 +86,36 @@
 				<div class="uploadnotes">
 					Notes : 
 					<ul>
-						<li>- Only PNG, JPEG, GIF and BMP images are allowed, up to 2 MiB.</li>
-						<li>- Separate tags with a space. Use an underscore '_' for multiple words.</li>
+						<li>- Les seuls formats acceptés sont JPEG, PNG, GIF et BMP avec une limite de 4 MiB.</li>
+						<li>- Séparez les mots-clés par un espace. Utilisez l'underscore '_' pour les mots-clés composés.</li>
 					</ul>
 				</div>
-				<label for="uploadimg">Select the file : </label><input type="file" class="button pinkiepie" name="file" id="uploadimg" /><br />
+				<label for="uploadimg">Fichier : </label><input type="file" class="button pinkiepie" name="file" id="uploadimg" /><br />
 				<div class="uploadbuttonbox">
-					<input type="submit" class="button rainbowdash rfloat" onclick="toggleUploadWait();" id="sumbitupload" value="Upload" />
-					<input type="button" onclick="hideUploadDialog();" class="button twilightsparkle rfloat" value="Cancel" />
+					<input type="submit" class="button rainbowdash rfloat" onclick="toggleUploadWait();" id="sumbitupload" value="Envoyer" />
+					<input type="button" onclick="hideUploadDialog();" class="button twilightsparkle rfloat" value="Annuler" />
 				</div>
 			</form>
-			<div id="uploadwait" class="nodisplay"><img src="static/images/sending.png"><h1>Uploading...</h1></div>
+			<div id="uploadwait" class="nodisplay"><img src="static/images/sending.png"><h1>Envoi...</h1></div>
 		</div>
 		<div class="options">
 			<div style="float:right;width:40%;text-align:right;">
-				<a onclick="showUploadDialog();" class="button fluttershy">Submit a picture</a>
+				<a onclick="showUploadDialog();" class="button fluttershy">Envoyer une image</a>
 			</div>
 			<div style="float:left; width:60%;">
-				<a href="random" class="button pinkiepie">Random</a>
-				<span class="button rainbowdash">Coolest</span>
-				<a href="latest" class="button twilightsparkle">Latest</a>
+				<a href="random" class="button pinkiepie">Aléatoires</a>
+				<span class="button rainbowdash">Chouettes</span>
+				<a href="latest" class="button twilightsparkle">Derniers</a>
 			</div>
 			<div style="clear:both;"></div>
 			</div>
 			<div class="footer">
-			<a href="contact">Contact</a> - <a href="terms">Terms and conditions</a> - <a href="http://blog.ponywalls.net">Blog</a> - Source code
+				<?php 
+				global $config;
+				if($config['debug'] === true): ?>
+					<a onclick="$('.debug-window').toggle();">Fenêtre de debug<?php if(Debug::countExceptions() > 0) echo ' <span class="debug-red">('.Debug::countExceptions().')</span>'; ?></a> -
+				<?php endif; ?>
+			<a href="contact">Contact</a> - <a href="terms">Conditions d'utilisation</a> - <a href="http://blog.ponywalls.net">Blog</a> - Code source
 			</div>
 	</body>
 	

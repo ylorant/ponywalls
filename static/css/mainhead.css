@@ -24,7 +24,6 @@ a:hover
 	color:#AD5CAC;
 }
 
-
 .header
 {
 	position:fixed;
@@ -157,7 +156,7 @@ a:hover
 	position:absolute;
 	z-index:2;
 	right:0px;
-	top:90px;
+	top:81px;
 	width:250px;
 	height:160px;
 	background-color:#1A1A1A;
@@ -260,6 +259,11 @@ a:hover
 {
 	right:0px;
 	float:right;
+}
+
+.lfloat
+{
+	float:left;
 }
 
 .topbutton

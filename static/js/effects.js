@@ -1,46 +1,46 @@
-function toggleLoginDialog()
+ponywalls.toggleLoginDialog = function()
 {
 	$('#registerBox').slideUp(400);
 	$('#loginBox').slideToggle(400);
 }
 
-function toggleRegisterDialog()
+ponywalls.toggleRegisterDialog = function()
 {
 	$('#loginBox').slideUp(400);
 	$('#registerBox').slideToggle(400);
 }
 
-function closeDialog(type)
+ponywalls.closeDialog = function(type)
 {
 	$('#dialog_'+type).fadeOut(400);
 	$('#shadow').fadeOut(400);
 }
 
-function showUploadDialog()
+ponywalls.showUploadDialog = function()
 {
 	$('#imguploaddialog').fadeIn(400);
 	$('#shadow').fadeIn(400);
 }
 
-function hideUploadDialog()
+ponywalls.hideUploadDialog = function()
 {
 	$('#imguploaddialog').fadeOut(400);
 	$('#shadow').fadeOut(400);
 }
 
-function toggleUploadWait()
+ponywalls.toggleUploadWait = function()
 {
 	$('#uploadform').fadeOut(200, function() {
 		$('#uploadwait').fadeIn(200);
 	});
 }
 
-function updateWallSize()
+ponywalls.updateWallSize = function()
 {
 	$('#view').css('height', window.innerHeight - 120);
 }
 
-function toggleData()
+ponywalls.toggleData = function()
 {
 	if($('.contextzone p').css('display') == 'none')
 	{
@@ -54,7 +54,7 @@ function toggleData()
 	}
 }
 
-function toggleImageData()
+ponywalls.toggleImageData = function()
 {
 	$('.contextzone').fadeToggle(400);
 	if($('.contextzone').css('opacity') == '0')
@@ -63,21 +63,17 @@ function toggleImageData()
 		$('#view').animate({width: '80%',right: '10%'}, 400);
 }
 
-function editImageInfo()
+ponywalls.editImageInfo = function()
 {
 	var image = $('#infoEditButton img');
 	image.attr('src', image.attr('src').replace('edit.png', 'tick.png'));
+	
 	$('#infoEditButton').text(' Update');
 	$('#infoEditButton').prepend(image);
 	$('#infoEditButton').removeClass('twilightsparkle');
 	$('#infoEditButton').addClass('applefritter');
-	$('#infoEditButton').attr('onclick', 'submitImageInfo();');
+	$('#infoEditButton').attr('onclick', 'ponywalls.submitImageInfo();');
 	$('#dataShow').fadeOut(400, function() {
 		$('#editDataForm').fadeIn(400);
 	});
-}
-
-function submitImageInfo()
-{
-	$('#dataEditForm').submit();
 }

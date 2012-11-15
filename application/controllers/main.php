@@ -1,19 +1,37 @@
 <?php
+namespace Controller;
+use \Debug;
+use \Model\WallpaperList;
+use \Model\Wallpaper;
+use \Model\Model;
+use \Model\User;
+use \View\View;
+use \Exception\InvalidArgumentException;
 
 class Main extends Controller
 {
 	private $ratios;
+	private $user = null;
+	public $lang = 'en';
 	
 	public function __construct()
 	{
 		$this->ratios = array('16:9' => 16/9, '16:10' => 16/10, '4:3' => 4/3, '5:4' => 5/4);
+		
+		if(!empty($_SESSION['user']))
+			$this->user = Model::unserialize($_SESSION['user'], new User());
+			
+		Debug::show($this->user, 'User data');
 	}
 	
 	//Main page (search area mainly)
 	public function index()
 	{
 		$sentenceList = explode("\n", trim(file_get_contents('static/sentences.txt')));
-		$template = $this->loadView('main_view');
+		if($this->lang == 'fr')
+			$template = new View('fr/index');
+		else
+			$template = new View('index');
 		$template->set('titleSentence', str_replace('\n', '<br />',$sentenceList[rand(0, count($sentenceList) - 1)]));
 		
 		if(isset($_SESSION['message']))
@@ -23,10 +41,10 @@ class Main extends Controller
 			unset($_SESSION['message']);
 		}
 		
-		if(isset($_SESSION['login']))
+		if(!empty($this->user))
 		{
 			$template->set('logged', TRUE);
-			$template->set('userData', $_SESSION);
+			$template->set('user', $this->user);
 		}
 		
 		$template->render();
@@ -40,161 +58,182 @@ class Main extends Controller
 		if(isset($_POST['search']))
 		{
 			if(isset($_POST['searchtype']))
-				header('Location: '.BASE_URL.'search/'.urlencode($_POST['search']).'/'.$_POST['searchtype']);
+				$this->redirect('search/'.urlencode($_POST['search']).'/'.$_POST['searchtype']);
 			else
-				header('Location: '.BASE_URL.'search/'.urlencode($_POST['search']));
+				$this->redirect('search/'.urlencode($_POST['search']));
 			exit();
 		}
 		
+		Debug::show(func_get_args(), "Search");
 		$data = urldecode($data);
 		
 		if(!$data)
 		{
-			header('Location: '.BASE_URL.'index');
+			
+			Debug::exception(new InvalidArgumentException('data'));
+			$this->redirect('index');
 			exit();
 		}
 		
 		if($data == 'order:latest')
 		{
-			header('Location: '.BASE_URL.'latest');
+			$this->redirect('latest');
 			exit();
 		}
 		else if($data == 'order:random')
 		{
-			header('Location: '.BASE_URL.'random');
+			$this->redirect('random');
 			exit();
 		}
 		
-		$model = $this->loadModel('Walls_model');
+		$wallpaperList = new WallpaperList();
 		$keywords = explode(' ', $data);
-		$results = $model->searchWallpaper($keywords, $searchtype == 'inclusive');
+		$results = $wallpaperList->search($keywords, $searchtype == 'inclusive');
 		//~ $related = $model->relatedKeywords($keywords);
 		
-		$template = $this->loadView('search_view');
+		$template = new View('search');
 		$template->set('wrelated', array());
 		
 		if($searchtype == 'inclusive')
 			$template->set('inclusive', TRUE);
 		
-		if(isset($_SESSION['login']))
+		if(!empty($this->user))
 		{
 			$template->set('logged', TRUE);
-			$template->set('userData', $_SESSION);
+			$template->set('user', $this->user);
 		}
 		
 		$template->set('search', $data);
-		$template->set('results', $results);
+		$template->set('results', $wallpaperList);
 		$template->render();
+		
+		Debug::show($template->getVars());
 	}
 	
 	public function random()
 	{
-		$model = $this->loadModel('Walls_model');
-		$results = $model->randomWallpapers();
+		$model = new WallpaperList();
+		$model->random(20);
 		
-		$template = $this->loadView('search_view');
-		$template->set('wrelated', array());
-		if(isset($_SESSION['login']))
+		$template = new View('search');
+		if(!empty($this->user))
 		{
 			$template->set('logged', TRUE);
-			$template->set('userData', $_SESSION);
+			$template->set('user', $this->user);
 		}
 		
 		$template->set('search', 'order:random');
-		$template->set('results', $results);
+		$template->set('results', $model);
 		$template->render();
 	}
 	
 	public function latest()
 	{
-		$model = $this->loadModel('Walls_model');
-		$results = $model->lastWallpapers();
+		$model = new WallpaperList();
+		$model->latest(20);
 		
-		$template = $this->loadView('search_view');
-		$template->set('wrelated', array());
-		if(isset($_SESSION['login']))
+		$template = new View('search');
+		if(!empty($this->user))
 		{
 			$template->set('logged', TRUE);
-			$template->set('userData', $_SESSION);
+			$template->set('user', $this->user);
 		}
 		
 		$template->set('search', 'order:latest');
-		$template->set('results', $results);
+		$template->set('results', $model);
 		$template->render();
 	}
 	
 	public function view($id)
 	{
-		$model = $this->loadModel('Walls_model');
-		$wall = $model->getWallpaper($id);
-		
-		if($wall == FALSE)
+		if(empty($id))
 		{
 			$_SESSION['message'] = array('error', 'This wallpaper does not exists');
-			header('index.php');
+			$this->redirect('index');
 			exit();
 		}
 		
-		switch($wall['rating'])
+		$wallpaper = new Wallpaper($id);
+		
+		if(empty($wallpaper->id))
+		{
+			$_SESSION['message'] = array('error', 'This wallpaper does not exists');
+			$this->redirect('index');
+			exit();
+		}
+		
+		
+		switch($wallpaper->rating)
 		{
 			case 's':
-				$wall['rating_str'] = 'Safe';
+				$wallpaper->rating_str = 'Safe';
 				break;
 			case 'q':
-				$wall['rating_str'] = 'Questionable';
+				$wallpaper->rating_str = 'Questionable';
 				break;
 			case 'e':
-				$wall['rating_str'] = 'Explicit';
+				$wallpaper->rating_str = 'Explicit';
 				break;
 		}
 		
 		//Origin determination, from URL
-		$source = explode('://', $wall['source'], 2);
+		$source = explode('://', $wallpaper->source, 2);
 		
+		$wallpaper->source_url = null;
 		if($source[0] == 'spc')
 		{
-			$wall['source_url'] = null;
+			$wallpaper->source_url = null;
 			switch($source[1])
 			{
 				case 'orig':
-					$wall['source'] = 'Original';
+					$wallpaper->source = 'Original';
 					break;
 				case 'unknown':
-					$wall['source'] = 'Unknown';
+					$wallpaper->source = 'Unknown';
 					break;
 			}
 		}
 		elseif($source[0] == 'http')
 		{
 			$source[1] = explode('/', $source[1]);
-			$wall['source_url'] = $wall['source'];
-			$wall['source'] = $source[1][0];
+			$wallpaper->source_url = $wallpaper->source;
+			$wallpaper->source = $source[1][0];
 		}
 		
 		//Ratio determination
-		$size = explode('x', $wall['size']);
+		$size = explode('x', $wallpaper->size);
 		$ratio = $size[0] / $size[1];
 		
 		if($r = array_search($ratio, $this->ratios))
-			$wall['ratio'] = $r;
+			$wallpaper->ratio = $r;
 		else
 		{
 			$gcd = gcd($size[0], $size[1]);
-			$wall['ratio'] = 'Unknown ('. ($size[0] / $gcd) .':'. ($size[1]/$gcd) .')';
+			$wallpaper->ratio = 'Unknown ('. ($size[0] / $gcd) .':'. ($size[1]/$gcd) .')';
 		}
 		
+		//Author
+		if(empty($wallpaper->author))
+			$wallpaper->author = "Unknown";
 		
+		//Poster
+		if(empty($wallpaper->poster->login))
+			$wallpaper->poster->login = "Unknown";
 		
+		$template = new View('view');
 		
-		$template = $this->loadView('view_view');
-		
-		if(isset($_SESSION['login']))
+		if(!empty($this->user))
 		{
 			$template->set('logged', TRUE);
-			$template->set('userData', $_SESSION);
+			$template->set('user', $this->user);
+			
+			if($wallpaper->hasYay($this->user))
+				$template->set('yayed', true);
+			else
+				$template->set('yayed', false);
 		}
 		
-		$template->set('wallpaper', $wall);
+		$template->set('wallpaper', $wallpaper);
 		$template->render();
 	}
 	

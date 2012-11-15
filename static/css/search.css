@@ -5,9 +5,9 @@
 
 .thumbnail
 {
-	float:left;
+	/* float:left; */
 	position:relative;
-	margin:5px;
+	margin-bottom:10px;
 	cursor:pointer;
 	border:5px solid #1A1A1A;
 	background-color:#1A1A1A;
@@ -51,7 +51,11 @@
 	margin-bottom:15px;
 	text-align:center;
 	position:relative;
-	width:90%;
+	width:1091px;
+	
+	-webkit-column-count:5;
+	-webkit-column-gap: 10px;
+	-webkit-column-width:200px;
 }
 
 .notfound

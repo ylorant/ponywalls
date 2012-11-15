@@ -375,11 +375,16 @@ a:hover
 	color:#44FF44;
 }
 
-.closebutton
+.dialog .buttons
 {
 	position:absolute;
 	bottom:10px;
 	right:10px;
+}
+
+.closebutton div.button
+{
+	
 	outline: none;
 	cursor: pointer;
 	text-align: center;
