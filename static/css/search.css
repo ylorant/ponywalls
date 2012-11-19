@@ -5,7 +5,7 @@
 
 .thumbnail
 {
-	/* float:left; */
+	float:left;
 	position:relative;
 	margin-bottom:10px;
 	cursor:pointer;
@@ -15,6 +15,7 @@
 	padding:0px;
 	width:200px;
 	height:125px;
+	margin-right:10px;
 }
 
 .thumbnail img
@@ -51,11 +52,11 @@
 	margin-bottom:15px;
 	text-align:center;
 	position:relative;
-	width:1091px;
+	width:1100px;
 	
-	-webkit-column-count:5;
+	/*-webkit-column-count:5;
 	-webkit-column-gap: 10px;
-	-webkit-column-width:200px;
+	-webkit-column-width:200px;*/
 }
 
 .notfound
