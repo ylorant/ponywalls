@@ -2,11 +2,22 @@ var ponywalls = {};
 
 ponywalls.promptDefaultOptions =
 {
-	type: "confirm",
-	buttons: {"Close": 'this.el.trigger("close")'},
-	title: "I brought you a letter !",
-	header: "According to myself, the message is:",
-	message: "Empty."
+	confirm:
+	{
+		type: "confirm",
+		buttons: {"Close": 'this.el.trigger("close")'},
+		title: "I brought you a letter !",
+		header: "According to myself, the message is:",
+		message: "Empty."
+	},
+	error:
+	{
+		type: "error",
+		buttons: {"Close": 'this.el.trigger("close")'},
+		title: "Derp, an error occured",
+		header: "According to Derpy Hooves, the error is:",
+		message: "Unknown."
+	}
 };
 
 ponywalls.submitImageInfo = function()
@@ -72,7 +83,15 @@ ponywalls.hush = function(id, button)
 
 ponywalls.dialog = function(data)
 {
-	data = $.merge(data, ponywalls.promptDefaultOptions);
+	if(data.type != null)
+	{
+		if(data.type == "error")
+			data = $.extend(data, ponywalls.promptDefaultOptions.error);
+		else
+			data = $.extend(data, ponywalls.promptDefaultOptions.confirm);
+	}
+	else
+		data = $.extend(data, ponywalls.promptDefaultOptions.confirm);
 	
 	if($('div#shadow').length == 0)
 		$('body').append('<div id="shadow"></div>');
@@ -85,12 +104,12 @@ ponywalls.dialog = function(data)
 	var buttonContainer = $('<div class="buttons"></div>')
 	
 	dialog.attr('id', 'dialog_' + data.type);
-	image.attr('src', 'static/images/derpy_' + data.type);
+	image.attr('src', BASE_URL + 'static/images/derpy_' + data.type + ".png");
 	image.attr('alt', data.type);
 	title.html(data.title);
 	header.html(data.header);
 	content.addClass(data.type);
-	content.html(data.content);
+	content.html(data.message);
 	
 	image.appendTo(dialog);
 	title.appendTo(dialog);

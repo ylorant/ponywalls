@@ -1,0 +1,126 @@
+
+.dialog
+{
+	position:absolute;
+	margin:auto;
+	z-index:4;
+	width:40%;
+	height:40%;
+	top:30%;
+	left:30%;
+	border-radius:5px;
+	background-color:#1D1D1D;
+	border:1px solid #444;
+	padding:20px;
+	padding-bottom:0px;
+	box-shadow:inset 1px 1px 0px rgba(0,0,0,0.2);
+}
+
+#dialog_error img
+{
+	height:90%;
+	float:left;
+	margin-right:20px;
+}
+
+#dialog_confirm img
+{
+	position:absolute;
+	bottom:5%;
+	left:2%;
+	height:50%;
+}
+
+.dialog h1
+{
+	font-weight:lighter;
+	text-shadow: 0 1px 0px rgba(0,0,0,.3);
+	font-size:2.5em;
+	margin:0px;
+}
+
+#dialog_confirm h1
+{
+	text-align:center;
+}
+
+#dialog_error p
+{
+	text-align:center;
+	margin-top:10%;
+}
+
+#dialog_confirm p
+{
+	margin-top:10%;
+	margin-left:30%;
+}
+
+.dialogMessage
+{
+	font-size:2em;
+	font-weight:lighter;
+	text-shadow: 0 1px 1px rgba(0,0,0,.7);
+	text-align:center;
+}
+
+#dialog_confirm .dialogMessage
+{
+	margin-left:30%;
+}
+
+.error
+{
+	color:#FF4444;
+}
+
+.confirm
+{
+	color:#44FF44;
+}
+
+.dialog .buttons
+{
+	position:absolute;
+	bottom:10px;
+	right:10px;
+}
+
+.closebutton div.button
+{
+	
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font: 14px/100% Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	padding: .5em 1em;
+	margin:3px 5px;
+	margin-top:1em;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	-webkit-border-radius: 3px; 
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
+
+.closebutton:hover {
+	text-decoration: none;
+	font-style:normal;
+}
+
+.closebutton:active
+{
+/*
+	position:absolute;
+*/
+	bottom:9px;
+}
+
+.nodisplay
+{
+	display:none;
+}

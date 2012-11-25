@@ -14,6 +14,7 @@
 		</script>
 		<link rel="stylesheet" href="static/css/buttons.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="static/css/mainhead.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="static/css/dialog.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="static/css/view.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="static/css/debug.css" type="text/css" media="screen" />
 		<link rel="shortcut icon" type="image/x-icon" href="static/images/favicon.ico" />

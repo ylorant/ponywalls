@@ -12,6 +12,7 @@
 		<link rel="stylesheet" href="static/css/mainhead.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="static/css/search.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="static/css/debug.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="static/css/dialog.css" type="text/css" media="screen" />
 		<link rel="shortcut icon" type="image/x-icon" href="static/images/favicon.ico" />
 	</head>
 	

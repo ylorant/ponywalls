@@ -11,6 +11,7 @@
 		<link rel="stylesheet" href="static/css/buttons.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="static/css/index.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="static/css/debug.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="static/css/dialog.css" type="text/css" media="screen" />
 		<link rel="shortcut icon" type="image/x-icon" href="static/images/favicon.ico" />
 	</head>
 	
@@ -106,7 +107,7 @@
 			</div>
 			<div style="float:left; width:60%;">
 				<a href="random" class="button pinkiepie">Random</a>
-				<span class="button rainbowdash">Coolest</span>
+				<a href="coolest" class="button rainbowdash">Coolest</a>
 				<a href="latest" class="button twilightsparkle">Latest</a>
 			</div>
 			<div style="clear:both;"></div>

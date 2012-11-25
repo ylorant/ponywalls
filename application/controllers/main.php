@@ -85,6 +85,11 @@ class Main extends Controller
 			$this->redirect('random');
 			exit();
 		}
+		else if($data == 'order:coolest')
+		{
+			$this->redirect('coolest');
+			exit();
+		}
 		
 		$wallpaperList = new WallpaperList();
 		$keywords = explode(' ', $data);
@@ -127,10 +132,10 @@ class Main extends Controller
 		$template->render();
 	}
 	
-	public function latest()
+	public function latest($page = 0)
 	{
 		$model = new WallpaperList();
-		$model->latest(20);
+		$model->latest(20, (int) $page);
 		
 		$template = new View('search');
 		if(!empty($this->user))
@@ -140,6 +145,23 @@ class Main extends Controller
 		}
 		
 		$template->set('search', 'order:latest');
+		$template->set('results', $model);
+		$template->render();
+	}
+	
+	public function coolest($page = 0)
+	{
+		$model = new WallpaperList();
+		$model->coolest(20, (int) $page);
+		
+		$template = new View('search');
+		if(!empty($this->user))
+		{
+			$template->set('logged', TRUE);
+			$template->set('user', $this->user);
+		}
+		
+		$template->set('search', 'order:coolest');
 		$template->set('results', $model);
 		$template->render();
 	}

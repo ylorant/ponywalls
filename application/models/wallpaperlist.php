@@ -1,6 +1,7 @@
 <?php
 namespace Model;
 use \Iterator;
+use \Debug;
 use \Countable;
 
 class WallpaperList extends Model implements Iterator, Countable
@@ -13,10 +14,10 @@ class WallpaperList extends Model implements Iterator, Countable
 	/*
 	 * Selects a range of wallpapers starting from the most recent ones (if the time is equal, the greater ID is first).
 	 */
-	public function latest($limit)
+	public function latest($limit, $start = 0)
 	{
-		$this->prepare('SELECT walls.id, walls.size, walls.filename FROM walls ORDER BY postTime DESC LIMIT ?');
-		$this->execute($limit);
+		$this->prepare('SELECT walls.id, walls.size, walls.filename FROM walls ORDER BY postTime DESC LIMIT ?, ?');
+		$this->execute($start, $limit);
 		$data = $this->fetchAll();
 		
 		if(empty($data))
@@ -43,6 +44,27 @@ class WallpaperList extends Model implements Iterator, Countable
 		$this->execute($limit);
 		$data = $this->fetchAll();
 		
+		if(empty($data))
+			return 0;
+		else
+		{
+			$this->list = array();
+			foreach($data as $line)
+				$this->list[] = new Wallpaper($line);
+			
+			return count($this->list);
+		}
+	}
+	
+	/*
+	 * Selects a list of wallpapers ordering them by score, with biggest score first
+	 */
+	public function coolest($limit, $start = 0)
+	{
+		$this->prepare('SELECT w.id, w.size, w.filename, (SELECT COUNT(wsu.idUser) FROM wall_scores wsu WHERE wsu.idWall = w.id) AS score FROM walls w LEFT JOIN wall_scores ws ON ws.idWall = w.id GROUP BY w.id ORDER BY score DESC LIMIT ?, ?');
+		$this->execute($start, $limit);
+		$data = $this->fetchAll();
+		Debug::show($data);
 		if(empty($data))
 			return 0;
 		else

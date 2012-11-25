@@ -9,7 +9,7 @@ class Wallpaper extends Model
 	public $size = 0;
 	public $filename = '';
 	public $origFilename = '';
-	public $poster = -1;
+	public $poster = null;
 	public $rating = 's';
 	public $source = '';
 	public $author = '';
