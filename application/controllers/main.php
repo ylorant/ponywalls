@@ -224,7 +224,11 @@ class Main extends Controller
 		
 		//Ratio determination
 		$size = explode('x', $wallpaper->size);
-		$ratio = $size[0] / $size[1];
+		
+		if($size[1] > 0)
+			$ratio = $size[0] / $size[1];
+		else
+			$ratio = 0;
 		
 		if($r = array_search($ratio, $this->ratios))
 			$wallpaper->ratio = $r;
