@@ -177,7 +177,7 @@ class Wallpapers extends Controller
 			return FALSE;
 		}
 		
-		if($wall->statusKey != $_GET["key"])
+		if($wall->statusKey != $_POST["key"])
 		{
 			$_SESSION['message'] = array('error', 'This wallpaper has been modified. Please try again.');
 			$this->redirect('view/'.$id);
