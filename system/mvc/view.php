@@ -80,12 +80,12 @@ class View {
 		ob_start();
 		require($this->template);
 		$content = ob_get_clean();
-		$content = preg_replace('#<img( .+)? src="(.+)"( .+)? />#isU', '<img$1 src="'.BASE_URL.'$2"$3 />', $content);
-		$content = preg_replace('#<script( .+)? src="(.+)"( .+)?>#isU', '<script$1 src="'.BASE_URL.'$2"$3>', $content);
-		$content = preg_replace('#<a( .+)? href="(.+)"( .+)?>#isU', '<a$1 href="'.BASE_URL.'$2"$3>', $content);
-		$content = preg_replace('#<a( .+)? href="'.BASE_URL.'http://(.+)"( .+)?>#isU', '<a$1 href="http://$2"$3>', $content);
-		$content = preg_replace('#<link( .+)? href="(.+)"( .+)?>#isU', '<link$1 href="'.BASE_URL.'$2"$3>', $content);
-		$content = preg_replace('#<form( .+)? action="(.+)"( .+)?>#isU', '<form$1 action="'.BASE_URL.'$2"$3>', $content);
+		$content = preg_replace('#<img([^>]+)? src="(.+)"( .+)? />#isU', '<img$1 src="'.BASE_URL.'$2"$3 />', $content);
+		$content = preg_replace('#<script([^>]+)? src="(.+)"( .+)?>#isU', '<script$1 src="'.BASE_URL.'$2"$3>', $content);
+		$content = preg_replace('#<a([^>]+)? href="(.+)"( .+)?>#isU', '<a$1 href="'.BASE_URL.'$2"$3>', $content);
+		$content = preg_replace('#<a([^>]+)? href="'.BASE_URL.'http://(.+)"( .+)?>#isU', '<a$1 href="http://$2"$3>', $content);
+		$content = preg_replace('#<link([^>]+)? href="(.+)"( .+)?>#isU', '<link$1 href="'.BASE_URL.'$2"$3>', $content);
+		$content = preg_replace('#<form([^>]+)? action="(.+)"( .+)?>#isU', '<form$1 action="'.BASE_URL.'$2"$3>', $content);
 		
 		echo $content;
 	}

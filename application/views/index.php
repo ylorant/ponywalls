@@ -1,3 +1,4 @@
+<?php global $config; ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -8,6 +9,19 @@
 		<script type="text/javascript" src="static/js/core.js"></script>
 		<script type="text/javascript" src="static/js/effects.js"></script>
 		<script type="text/javascript" src="system/utils/debug.js"></script>
+		<script type="text/javascript">
+			const BASE_URL = "<?php echo $config['base_url']; ?>";
+			
+			<?php if(isset($message)): ?>
+				$(document).ready(function()
+				{
+					ponywalls.dialog({
+						type: "<?php echo $message; ?>",
+						message: "<?php echo $errorMsg; ?>"
+					});
+				});
+			<?php endif; ?>
+		</script>
 		<link rel="stylesheet" href="static/css/buttons.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="static/css/index.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="static/css/debug.css" type="text/css" media="screen" />
@@ -16,28 +30,6 @@
 	</head>
 	
 	<body id="body">
-		<?php if(isset($message)) { ?>
-			<div id="shadow"></div>
-			<div id="dialog_<?php echo $message; ?>" class="dialog">
-				<?php if($message == 'error') { ?>
-					<img src="static/images/derpy_<?php echo $message; ?>.png" alt="<?php echo $message; ?>" />
-					<h1>Derp, an error occured.</h1>
-					<p>
-						According to Derpy Hooves, the error is :				
-					</p>
-				<?php } else if($message == 'confirm') { ?>
-					<img src="static/images/derpy_<?php echo $message; ?>.png" alt="<?php echo $message; ?>" />
-					<h1>I brought you a letter !</h1>
-					<p>
-						According to myself, the message is :
-					</p>
-				<?php } ?>
-				<div class="dialogMessage <?php echo $message; ?>"><?php echo $errorMsg; ?></div>
-				<div class="closebutton twilightsparkle" onclick="closeDialog('<?php echo $message; ?>');">Close</div>
-			</div>
-		<?php } else { ?>
-			<div id="shadow" class="nodisplay"></div>
-		<?php } ?>
 		<div class="topbar">
 			<ul>
 				<li>Blacklist</li>

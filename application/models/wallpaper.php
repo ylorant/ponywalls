@@ -188,7 +188,7 @@ class Wallpaper extends Model
 		$this->execute(array(	$this->filename,
 								$this->orig_filename,
 								$this->size,
-								$this->poster->id,
+								!is_null($this->poster) ? $this->poster->id : null,
 								$this->rating,
 								$this->postTime,
 								$this->editTime,

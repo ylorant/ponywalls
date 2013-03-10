@@ -87,6 +87,7 @@ class Debug
 			}
 			
 			$str .= ob_get_clean();
+			$str .= "\n\n";
 		}
 		
 		if(!empty($_GET))
@@ -108,6 +109,7 @@ class Debug
 			}
 			
 			$str .= ob_get_clean();
+			$str .= "\n\n";
 		}
 		
 		$str .= "+------------+\n".

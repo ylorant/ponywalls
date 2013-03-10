@@ -5,7 +5,7 @@ ponywalls.promptDefaultOptions =
 	confirm:
 	{
 		type: "confirm",
-		buttons: {"Close": 'this.el.trigger("close")'},
+		buttons: {"Close": "$('#dialog_confirm').trigger('close')"},
 		title: "I brought you a letter !",
 		header: "According to myself, the message is:",
 		message: "Empty."
@@ -13,7 +13,7 @@ ponywalls.promptDefaultOptions =
 	error:
 	{
 		type: "error",
-		buttons: {"Close": 'this.el.trigger("close")'},
+		buttons: {"Close": "$('#dialog_error').trigger('close')"},
 		title: "Derp, an error occured",
 		header: "According to Derpy Hooves, the error is:",
 		message: "Unknown."
@@ -86,9 +86,9 @@ ponywalls.dialog = function(data)
 	if(data.type != null)
 	{
 		if(data.type == "error")
-			data = $.extend(data, ponywalls.promptDefaultOptions.error);
+			data = $.extend(ponywalls.promptDefaultOptions.error, data);
 		else
-			data = $.extend(data, ponywalls.promptDefaultOptions.confirm);
+			data = $.extend(ponywalls.promptDefaultOptions.confirm, data);
 	}
 	else
 		data = $.extend(data, ponywalls.promptDefaultOptions.confirm);
@@ -118,9 +118,16 @@ ponywalls.dialog = function(data)
 	
 	for(var name in data.buttons)
 	{
-		var button = $('<div class="promptbutton"');
+		var button = $('<a class="promptbutton button twilightsparkle" onclick="' + data.buttons[name] + '">' + name + '</a>');
+		button.appendTo(buttonContainer);
 	}
+	buttonContainer.appendTo(dialog);
 	
+	dialog.bind('close', function()
+	{
+		dialog.remove();
+		$('#shadow').remove();
+	});
 	
 	$('body').append(dialog);
 	
