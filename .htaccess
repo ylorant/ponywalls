@@ -2,7 +2,7 @@
 RewriteEngine On
 
 # Installation directory
-RewriteBase /ponywalls
+RewriteBase /
 # If fuel is not a level up
 # RewriteBase /public
 
