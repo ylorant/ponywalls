@@ -184,7 +184,7 @@ class Wallpapers extends Controller
 		$wallpaper->keywords = explode(' ', $_POST['tags']);
 		$wallpaper->poster = (isset($_SESSION['id']) ? $_SESSION['id'] : NULL);
 		$wallpaper->md5 = $md5;
-		$wallpaper->time = time();
+		$wallpaper->postTime = time();
 		
 		$wallpaper->create();
 		
