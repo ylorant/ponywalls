@@ -271,14 +271,18 @@ class Main extends Controller
     
 }
 
-function gcd($n, $m)
-{ 
-    $n=abs($n); $m=abs($m); 
-    if ($n==0 && $m==0) 
-        return 1;
-    if ($n==$m && $n>=1) 
-        return $n; 
-    return $m<$n?gcd($n-$m,$n):gcd($n,$m-$n); 
-} 	
+function gcd($n, $m) {
+    while(true) {
+        if($n == $m) {
+            return $m;
+        }
+        if($n > $m) {
+            $n -= $m;
+        } else {
+            $m -= $n;
+        }
+    }
+}
+ 
 
 ?>
