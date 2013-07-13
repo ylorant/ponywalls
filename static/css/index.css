@@ -384,8 +384,10 @@ a:hover
 
 #uploadwait img
 {
-	top:2.5%;
-	height:90%;
+	top: 2.5%;
+	height: 90%;
+	position: absolute;
+	right: 2.5%;
 }
 
 #uploadwait h1
