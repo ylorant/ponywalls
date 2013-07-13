@@ -33,39 +33,64 @@ class Wallpapers extends Controller
 			$_POST = array();
 			$_POST['tags'] = urldecode($tags);
 			$ret = $this->add(TRUE);
-			if(!$ret && is_file('static/tmp/'.$fn))
+			
+			if(!$ret->result && is_file('static/tmp/'.$fn))
 				unlink('static/tmp/'.$fn);
-			echo 'ok';
+							
+			Debug::terminate();
+			$ret->debug = (string) Debug::getInstance();
+			echo $ret;
 		}
 	}
 	
 	//Adding a wallpaper
 	public function add($ajax = FALSE)
 	{
+		$json = new JSON();
+		$json->result = false;
+		
 		if(!isset($_FILES['file']))
 		{
-			$_SESSION['message'] = array('error', 'Unknown error.');
+			$dialog = array('error', 'Unknown error.');
 			if(!$ajax)
+			{
+				$_SESSION['message'] = $dialog;
 				$this->redirect('index');
-			return FALSE;
+			}
+			else
+				$json->dialog = $dialog;
+			
+			return $json;
 		}
 	
 		//Checks if an error occured during the image transfer
 		if($_FILES['file']['error'] > 0)
 		{
-			$_SESSION['message'] = array('error', 'Transfer error.');
+			$dialog = array('error', 'Transfer error.');
 			if(!$ajax)
+			{
+				$_SESSION['message'] = $dialog;
 				header('Location:index');
-			return FALSE;
+			}
+			else
+				$json->dialog = $dialog;
+			
+			return $json;
 		}
 	
 		//Checks the size, in case that the browser failed to limit it
 		if($_FILES['file']['size'] > MAX_FILE_SIZE)
 		{
-			$_SESSION['message'] = array('error', 'File too big.');
+			$dialog = array('error', 'File too big.');
 			if(!$ajax)
+			{
+				$_SESSION['message'] = $dialog;
 				header('Location:index');
-			return FALSE;
+			}
+			else
+				$json->dialog = $dialog;
+			
+			return $json;
 		}
 	
 		//Checking file format (by MIME)
@@ -74,10 +99,16 @@ class Wallpapers extends Controller
 		$allowed_mimetypes =  array('image/jpeg', 'image/png', 'image/bmp', 'image/gif', 'image/x-windows-bmp');
 		if(!in_array($mime, $allowed_mimetypes))
 		{
-			$_SESSION['message'] = array('error', 'File type not allowed : '.$mime);
+			$dialog = array('error', 'File type not allowed : '.$mime);
 			if(!$ajax)
+			{
+				$_SESSION['message'] = $dialog;
 				header('Location:index');
-			return FALSE;
+			}
+			else
+				$json->dialog = $dialog;
+			
+			return $json;
 		}
 		
 		//Finally, saving the wallpaper
@@ -98,10 +129,16 @@ class Wallpapers extends Controller
 		if(!$wallpaper->MD5Exists($md5))
 		{
 			unlink($dest_filename); //Deleting the final file.
-			$_SESSION['message'] = array('error', 'This wallpaper already exists');
+			$dialog = array('error', 'This wallpaper already exists');
 			if(!$ajax)
+			{
+				$_SESSION['message'] = $dialog;
 				header('Location:index');
-			return FALSE;
+			}
+			else
+				$json->dialog = $dialog;
+			
+			return $json;
 		}
 		
 		
@@ -147,15 +184,23 @@ class Wallpapers extends Controller
 		$wallpaper->keywords = explode(' ', $_POST['tags']);
 		$wallpaper->poster = (isset($_SESSION['id']) ? $_SESSION['id'] : NULL);
 		$wallpaper->md5 = $md5;
-		$wallpaper->time = time();
+		$wallpaper->postTime = time();
 		
 		$wallpaper->create();
 		
-		$_SESSION['message'] = array('confirm', 'Your wallpaper is uploaded!');
+		$dialog = array('confirm', 'Your wallpaper is uploaded!');
 		if(!$ajax)
+		{
+			$_SESSION['message'] = $dialog;
 			header('Location:index');
+		}
+		else
+		{
+			$json->result = true;
+			$json->dialog = $dialog;
+		}
 		
-		return TRUE;
+		return $json;
 	}
 	
 	//Updating wallpaper info.

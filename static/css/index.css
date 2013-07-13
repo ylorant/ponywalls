@@ -258,7 +258,8 @@ a:hover
 	font-size:1.5em;
 	padding-left:15px;
 	padding-right:15px;
-	padding-top:6px;
+	padding-top:8px;
+	vertical-align:top;
 }
 
 /*

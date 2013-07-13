@@ -44,7 +44,7 @@ function FileSelectHandler(e) {
     // cancel event and hover styling  
     FileDragHover(e);  
     // fetch FileList object  
-    var files = e.target.files || e.dataTransfer.files;  
+    var files = e.target.files || e.dataTransfer.files;
     // process all File objects  
  	t = prompt("Type tags for "+files[0].name);
  	ponywalls.toggleUploadWait();
@@ -60,9 +60,17 @@ function UploadFile(file, tags)
 		xhr.open("POST", "wallpapers/add_ajax/"+tags, true);  
 		xhr.setRequestHeader("X_FILENAME", file.name);
 		  
-		xhr.onreadystatechange = function() {
-		    if (xhr.readyState != 4) { return; }
-			window.location = "index";
+		xhr.onreadystatechange = function()
+		{
+		    if (xhr.readyState != 4)
+				return;
+			else
+			{
+				var data = JSON.parse(xhr.responseText);
+				debug.addTab(data.debug);
+				ponywalls.dialog({ type: data.dialog[0], message: data.dialog[1] });
+				setTimeout("ponywalls.toggleUploadForm(); ponywalls.hideUploadDialog();", 100);
+			}
 		};
 		xhr.send(file);
 	}

@@ -35,6 +35,12 @@ ponywalls.toggleUploadWait = function()
 	});
 }
 
+ponywalls.toggleUploadForm = function(callback)
+{
+	$('#uploadwait').hide();
+	$('#uploadform').show();
+}
+
 ponywalls.updateWallSize = function()
 {
 	$('#view').css('height', window.innerHeight - 120);

@@ -111,8 +111,10 @@ class Wallpaper extends Model
 	public function update()
 	{
 		//Escaping
+		$this->keywords = array_unique($this->keywords);
 		foreach($this->keywords as $i => $keyword)
 			$this->keywords[$i] = strtolower(htmlentities($keyword));
+		
 		$this->author = htmlentities($this->author);
 		$this->source = htmlentities($this->source);
 		
@@ -160,9 +162,10 @@ class Wallpaper extends Model
 	public function create()
 	{
 		//Escaping data
+		$this->keywords = array_unique($this->keywords);
 		$orig_filename = htmlentities($this->origFilename);
-		foreach($this->keywords as &$keyword)
-			$keyword = strtolower(htmlentities($keyword));
+		foreach($this->keywords as $i => $keyword)
+			$this->keywords[$i] = strtolower(htmlentities($keyword));
 		
 		$this->prepare('INSERT IGNORE INTO keywords (keyword) VALUES(?)');
 		
@@ -188,24 +191,24 @@ class Wallpaper extends Model
 		$this->execute(array(	$this->filename,
 								$this->orig_filename,
 								$this->size,
-								$this->poster->id,
+								!is_null($this->poster) ? $this->poster->id : null,
 								$this->rating,
 								$this->postTime,
 								$this->editTime,
 								$this->md5,
 								$this->author,
 								$this->source ));
-		$this->id = $this->lastInsertID();
-		
+		$this->id = (int)$this->lastInsertID();
 		
 		
 		$this->prepare('INSERT INTO wall_keywords (idWall, idKeyword) VALUES(?, (SELECT id FROM keywords WHERE keyword = ?))');
+		
 		foreach($this->keywords as $keyword)
 		{
 			if(!empty($keyword))
 			{
 				$this->execute(array($this->id, $keyword));
-				$this->_query->closeCursor();
+				$this->reset();
 			}
 		}
 	}

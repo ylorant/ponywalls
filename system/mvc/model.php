@@ -108,18 +108,26 @@ class Model {
 		}
 	}
 	
-	public function bind($name, $value = NULL)
+	public function bind($name, $value = false, $forceValue = false)
 	{
-		if($value === NULL)
+		if($forceValue == false && $value === false)
 			list($value, $name) = array($name, ++$this->_curParamID);
 		elseif(is_numeric($name))
 			$name = ++$this->_curParamID;
 		
-		$type = PDO::PARAM_STR;
-		if(is_int($value))
-			$type = PDO::PARAM_INT;
 		
-		$this->_query->bindValue($name, $value, $type);
+		if(is_int($value))
+			$param = PDO::PARAM_INT;
+		elseif(is_bool($value))
+			$param = PDO::PARAM_BOOL;
+		elseif(is_null($value))
+			$param = PDO::PARAM_NULL;
+		elseif(is_string($value))
+			$param = PDO::PARAM_STR;
+		else
+			$param = FALSE;
+		
+		$this->_query->bindValue($name, $value, $param);
 	}
 	
 	public function execute()
@@ -132,7 +140,7 @@ class Model {
 			if(is_array($arg))
 			{
 				foreach($arg as $k => $v)
-					$this->bind($k, $v);
+					$this->bind($k, $v, true);
 			}
 			else
 				$this->bind($arg);
@@ -198,7 +206,10 @@ class DatabaseHandler
 				if(DB_ENGINE != 'sqlite')
 					self::$_pdo = new PDO(DB_ENGINE.':host='.DB_HOST.';port='.DB_PORT.';dbname='.DB_DBNAME, DB_USER, DB_PW);
 				else
+				{
 					self::$_pdo = new PDO(DB_ENGINE.':'.DB_FILE);
+					self::$_pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+				}
 			        
 				self::$_pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 				self::$_pdo->exec('SET NAMES utf8');
